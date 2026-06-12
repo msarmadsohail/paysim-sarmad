@@ -61,14 +61,16 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
             })
 
         # ── 2. Holdout split ─────────────────────────────────────────────────
+        # Retained for future classifier eval (baseline_eval / optuna_studies).
+        # ARGN training uses the full train set below.
         train_argn, holdout = split_holdout(train)
-        T.log.info(fraud_stats(train_argn, "train_argn"))
-        T.log.info(fraud_stats(holdout, "holdout"))
+        T.log.info(fraud_stats(train_argn, "train_argn (holdout reserved, unused)"))
+        T.log.info(fraud_stats(holdout, "holdout (reserved, unused)"))
 
-        # ── 3. ARGN datasets ─────────────────────────────────────────────────
-        m1_data = build_m1(train_argn)
-        m2_data = build_m2(train_argn)
-        m3_data = build_m3(train_argn)
+        # ── 3. ARGN datasets — built from full train ──────────────────────────
+        m1_data = build_m1(train)
+        m2_data = build_m2(train)
+        m3_data = build_m3(train)
         T.log.info(fraud_stats(m1_data, "M1"))
         T.log.info(fraud_stats(m2_data, "M2"))
         T.log.info(fraud_stats(m3_data, "M3"))
@@ -111,7 +113,19 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
 
         if stop_after_generation:
             T.log.info(f"[fold={fold}] stop_after_generation=True — skipping baseline_eval + optuna_studies")
-            fold_result = {"fold": fold, "total_elapsed_s": total_elapsed}
+
+            # Export combined fraud pool for Aroj's pipeline (synthetic mode).
+            # Aroj's resolve_synthetic_pool() expects: <dir>/split_{fold}.csv
+            from config import SYNTH_DIR as SYNTHETIC_DIR
+            export_dir = SYNTHETIC_DIR / "for_classifier"
+            export_dir.mkdir(parents=True, exist_ok=True)
+            combined = pd.concat([pool_m1, pool_m2, pool_m3], ignore_index=True)
+            export_path = export_dir / f"split_{fold}.csv"
+            combined.to_csv(export_path, index=False)
+            T.log.info(f"[fold={fold}] Combined fraud pool exported: {len(combined)} rows → {export_path}")
+            mlflow.log_param("export_fraud_rows", len(combined))
+
+            fold_result = {"fold": fold, "total_elapsed_s": total_elapsed, "export_fraud_rows": len(combined)}
             RESULTS_DIR.mkdir(parents=True, exist_ok=True)
             out_path = RESULTS_DIR / f"fold_{fold}_results.json"
             out_path.write_text(json.dumps(fold_result, indent=2))
