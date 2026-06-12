@@ -8,9 +8,9 @@ Flow
 3. Build M1/M2/M3 datasets
 4. Train all 3 ARGNs  (M3 parallel on GPU 1)
 5. Generate fraud pools from each model
-6. Run baseline classifiers (original data only) → log to MLflow
-7. Run Optuna studies (3 classifiers × 100 trials) → log to MLflow
-8. Save per-fold results JSON
+6. Save per-fold results JSON
+
+Classifier baseline + Optuna HPO are intentionally skipped by default.
 """
 
 import json
@@ -35,7 +35,7 @@ from generate import generate_all, load_pools
 from optimize import run_baseline, run_studies
 
 
-def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = False) -> dict:
+def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = False, stop_after_generation: bool = True) -> dict:
     T.setup_fold_logging(fold)
     T.init_mlflow(fold)
 
@@ -104,14 +104,29 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
             "pool_m3_size": len(pool_m3),
         })
 
-        # ── 6. Baseline ───────────────────────────────────────────────────────
+        # ── 6. Save results ───────────────────────────────────────────────────
+        total_elapsed = round(time.time() - fold_start, 1)
+        T.log.info(f"[fold={fold}] TOTAL elapsed: {total_elapsed}s  ({total_elapsed/3600:.2f}h)")
+        mlflow.log_metric("total_elapsed_s", total_elapsed)
+
+        if stop_after_generation:
+            T.log.info(f"[fold={fold}] stop_after_generation=True — skipping baseline_eval + optuna_studies")
+            fold_result = {"fold": fold, "total_elapsed_s": total_elapsed}
+            RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+            out_path = RESULTS_DIR / f"fold_{fold}_results.json"
+            out_path.write_text(json.dumps(fold_result, indent=2))
+            T.log.info(f"[fold={fold}] Results saved → {out_path}")
+            mlflow.log_artifact(str(out_path))
+            return fold_result
+
+        # ── 7. Baseline ───────────────────────────────────────────────────────
         with T.timed("baseline_eval", fold):
             baseline = run_baseline(train_argn, holdout, test, fold)
         T.log.info(f"[fold={fold}] Baseline results:")
         for clf, res in baseline.items():
             T.log.info(f"  {clf}: test pr_auc={res['test']['pr_auc']:.4f}  roc_auc={res['test']['roc_auc']:.4f}")
 
-        # ── 7. Optuna studies ─────────────────────────────────────────────────
+        # ── 8. Optuna studies ─────────────────────────────────────────────────
         with T.timed("optuna_studies", fold):
             augmented = run_studies(
                 train_argn, holdout, test,
@@ -122,11 +137,7 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
         for clf, res in augmented.items():
             T.log.info(f"  {clf}: test pr_auc={res['test']['pr_auc']:.4f}  best_pct={res['best_params']['target_pct']}")
 
-        # ── 8. Save results ───────────────────────────────────────────────────
-        total_elapsed = round(time.time() - fold_start, 1)
-        T.log.info(f"[fold={fold}] TOTAL elapsed: {total_elapsed}s  ({total_elapsed/3600:.2f}h)")
-        mlflow.log_metric("total_elapsed_s", total_elapsed)
-
+        # ── 9. Save results ───────────────────────────────────────────────────
         fold_result = {
             "fold": fold,
             "total_elapsed_s": total_elapsed,

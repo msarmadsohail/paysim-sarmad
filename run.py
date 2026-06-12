@@ -3,17 +3,17 @@
 Entry point.
 
 Usage:
-  # run all 5 folds sequentially (full pipeline)
+  # run all 5 folds — train + generate pools only (default)
   python run.py
 
   # run a specific fold
   python run.py --fold 0
 
-  # skip ARGN training (use existing weights) — useful if training crashed post-training
+  # skip ARGN training (use existing weights)
   python run.py --fold 0 --skip-training
 
-  # skip both training and generation (re-run Optuna only)
-  python run.py --fold 0 --skip-training --skip-generation
+  # full pipeline including baseline eval + Optuna HPO
+  python run.py --full-pipeline
 
 Live log monitoring:
   tail -f /shared/paysim-sarmad/logs/fold_0.log
@@ -75,9 +75,11 @@ def main() -> None:
     parser.add_argument("--fold", type=int, default=None, help="Run a single fold (0-4). Default: all folds.")
     parser.add_argument("--skip-training",   action="store_true")
     parser.add_argument("--skip-generation", action="store_true")
+    parser.add_argument("--full-pipeline",   action="store_true", help="Also run baseline eval + Optuna HPO after generation.")
     args = parser.parse_args()
 
     folds = [args.fold] if args.fold is not None else list(range(N_FOLDS))
+    stop_after_generation = not args.full_pipeline
 
     for fold in folds:
         try:
@@ -85,6 +87,7 @@ def main() -> None:
                 fold,
                 skip_training=args.skip_training,
                 skip_generation=args.skip_generation,
+                stop_after_generation=stop_after_generation,
             )
         except Exception as e:
             T.log.error(f"Fold {fold} failed: {e}")
