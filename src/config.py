@@ -31,7 +31,7 @@ M1_POOL_TARGET  = 150_000     # target fraud rows — M1 batched free generation
 M2_POOL_TARGET  = 150_000     # target fraud rows — M2 batched free generation
 M1_GEN_BATCH    = 150_000     # batch size for M1 (100% fraud, one pass usually enough)
 M2_GEN_BATCH    = 50_000      # batch size for M2 (~1.3% fraud rate in output)
-M3_GEN_BATCH    = 5_000_000   # single free pass for M3 — natural yield, no target cap
+M3_GEN_BATCH    = 15_000_000  # single free pass for M3 — natural yield, no target cap
 
 # legacy alias kept for build_augmented_train compatibility
 POOL_PER_MODEL  = 150_000
