@@ -27,13 +27,21 @@ def _append(fold: int, entry: dict) -> None:
         f.write(json.dumps(entry) + "\n")
 
 
-def setup_fold_logging(fold: int) -> None:
-    """Add a per-fold file handler so logs are streamable via `tail -f`."""
-    fh = logging.FileHandler(LOG_DIR / f"fold_{fold}.log", mode="a")
+def setup_fold_logging(fold: int, run_log: str | None = None) -> None:
+    """Add a per-fold file handler so logs are streamable via `tail -f`.
+
+    Each call overwrites the fold log file (mode='w') so runs don't bleed
+    into each other. The shared run-level log (run_log) is always appended.
+    """
+    fold_log = LOG_DIR / f"fold_{fold}.log"
+    fh = logging.FileHandler(fold_log, mode="w")
     fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S"))
-    logging.getLogger("paysim").addHandler(fh)
-    # also capture mostlyai logs
+    logger = logging.getLogger("paysim")
+    logger.addHandler(fh)
     logging.getLogger("mostlyai").addHandler(fh)
+
+    # overwrite jsonl too so it's clean per run
+    _jsonl(fold).write_text("")
 
 
 def init_mlflow(fold: int) -> None:

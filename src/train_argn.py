@@ -3,8 +3,8 @@ Train the three TabularARGN models per fold.
 
 GPU assignment
 --------------
-  GPU_M1_M2 (cuda:0) : M1 (fraud-only) then M2 (fraud + 10% non-fraud) — sequential
-  GPU_M3    (cuda:1) : M3 (full train)  — runs in a subprocess in parallel with M1+M2
+  GPU_M1 (cuda:0) : M1 (fraud-only) then M2 (fraud + 10% non-fraud) — sequential
+  GPU_M3 (cuda:1) : M3 (full train)  — runs in a subprocess in parallel with M1+M2
 
 After both processes finish the workspace directories contain the saved model weights.
 Loading is deferred to the generation step (TabularARGN is re-instantiated from workspace_dir).
@@ -19,9 +19,11 @@ import pandas as pd
 from config import (
     MODELS_DIR,
     M1_MAX_EPOCHS, M2_MAX_EPOCHS, M3_MAX_EPOCHS,
-    GPU_M1_M2, GPU_M3,
+    GPU_M1, GPU_M3,
 )
 import tracking as T
+
+GPU_M1_M2 = GPU_M1  # alias — training uses GPU_M1 for both M1 and M2 sequentially
 
 
 # ── subprocess worker (runs in a separate process for M3) ────────────────────
