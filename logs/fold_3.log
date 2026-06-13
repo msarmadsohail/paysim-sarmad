@@ -1,0 +1,251 @@
+2026-06-13 04:20:36 [INFO] ============================================================
+2026-06-13 04:20:36 [INFO] FOLD 3 — pipeline start
+2026-06-13 04:20:36 [INFO] ============================================================
+2026-06-13 04:20:36 [INFO] [fold=3] ▶ START load_data
+2026-06-13 04:20:47 [INFO] train: 5,090,096 rows | fraud=6,570 (0.129%)
+2026-06-13 04:20:47 [INFO] test: 1,272,524 rows | fraud=1,643 (0.129%)
+2026-06-13 04:20:47 [INFO] [fold=3] ✔ DONE  load_data  (11.2s)
+2026-06-13 04:20:51 [INFO] train_argn (holdout reserved, unused): 4,072,076 rows | fraud=5,256 (0.129%)
+2026-06-13 04:20:51 [INFO] holdout (reserved, unused): 1,018,020 rows | fraud=1,314 (0.129%)
+2026-06-13 04:20:53 [INFO] M1: 6,570 rows | fraud=6,570 (100.000%)
+2026-06-13 04:20:53 [INFO] M2: 514,922 rows | fraud=6,570 (1.276%)
+2026-06-13 04:20:53 [INFO] M3: 5,090,096 rows | fraud=6,570 (0.129%)
+2026-06-13 04:20:53 [INFO] [fold=3] ▶ START train_all_argns
+2026-06-13 04:20:55 [INFO] [fold=3] Launching M3 on cuda:1 (subprocess)
+2026-06-13 04:20:55 [INFO] [fold=3] ▶ START train_m1
+2026-06-13 04:21:55 [INFO] [fold=3] ✔ DONE  train_m1  (59.7s)
+2026-06-13 04:21:55 [INFO] [fold=3] ▶ START train_m2
+2026-06-13 04:36:28 [INFO] [fold=3] ✔ DONE  train_m2  (873.5s)
+2026-06-13 04:36:28 [INFO] [fold=3] Waiting for M3 subprocess (pid=316391) …
+2026-06-13 06:20:22 [INFO] [fold=3] M3 training done
+2026-06-13 06:20:22 [INFO] [fold=3] ✔ DONE  train_all_argns  (7169.7s)
+2026-06-13 06:20:22 [INFO] [fold=3] ▶ START generate_all_pools
+2026-06-13 06:20:22 [INFO] [fold=3] ▶ START generate_m1
+2026-06-13 06:20:23 [INFO] [fold=3] M1 pool saved: 20,000 fraud rows → /shared/paysim-sarmad/synthetic/fold_3/pool_m1.csv
+2026-06-13 06:20:23 [INFO] [fold=3] ✔ DONE  generate_m1  (0.4s)
+2026-06-13 06:20:23 [INFO] [fold=3] ▶ START generate_m2
+2026-06-13 06:20:23 [INFO] [fold=3] M2 pool: 238/20000 fraud rows (round 1)
+2026-06-13 06:20:24 [INFO] [fold=3] M2 pool: 513/20000 fraud rows (round 2)
+2026-06-13 06:20:25 [INFO] [fold=3] M2 pool: 785/20000 fraud rows (round 3)
+2026-06-13 06:20:25 [INFO] [fold=3] M2 pool: 1045/20000 fraud rows (round 4)
+2026-06-13 06:20:26 [INFO] [fold=3] M2 pool: 1309/20000 fraud rows (round 5)
+2026-06-13 06:20:27 [INFO] [fold=3] M2 pool: 1574/20000 fraud rows (round 6)
+2026-06-13 06:20:27 [INFO] [fold=3] M2 pool: 1840/20000 fraud rows (round 7)
+2026-06-13 06:20:28 [INFO] [fold=3] M2 pool: 2111/20000 fraud rows (round 8)
+2026-06-13 06:20:28 [INFO] [fold=3] M2 pool: 2403/20000 fraud rows (round 9)
+2026-06-13 06:20:29 [INFO] [fold=3] M2 pool: 2688/20000 fraud rows (round 10)
+2026-06-13 06:20:30 [INFO] [fold=3] M2 pool: 2974/20000 fraud rows (round 11)
+2026-06-13 06:20:30 [INFO] [fold=3] M2 pool: 3254/20000 fraud rows (round 12)
+2026-06-13 06:20:31 [INFO] [fold=3] M2 pool: 3523/20000 fraud rows (round 13)
+2026-06-13 06:20:32 [INFO] [fold=3] M2 pool: 3788/20000 fraud rows (round 14)
+2026-06-13 06:20:32 [INFO] [fold=3] M2 pool: 4047/20000 fraud rows (round 15)
+2026-06-13 06:20:33 [INFO] [fold=3] M2 pool: 4317/20000 fraud rows (round 16)
+2026-06-13 06:20:33 [INFO] [fold=3] M2 pool: 4582/20000 fraud rows (round 17)
+2026-06-13 06:20:34 [INFO] [fold=3] M2 pool: 4848/20000 fraud rows (round 18)
+2026-06-13 06:20:35 [INFO] [fold=3] M2 pool: 5122/20000 fraud rows (round 19)
+2026-06-13 06:20:35 [INFO] [fold=3] M2 pool: 5428/20000 fraud rows (round 20)
+2026-06-13 06:20:36 [INFO] [fold=3] M2 pool: 5714/20000 fraud rows (round 21)
+2026-06-13 06:20:37 [INFO] [fold=3] M2 pool: 5988/20000 fraud rows (round 22)
+2026-06-13 06:20:37 [INFO] [fold=3] M2 pool: 6267/20000 fraud rows (round 23)
+2026-06-13 06:20:38 [INFO] [fold=3] M2 pool: 6537/20000 fraud rows (round 24)
+2026-06-13 06:20:38 [INFO] [fold=3] M2 pool: 6792/20000 fraud rows (round 25)
+2026-06-13 06:20:39 [INFO] [fold=3] M2 pool: 7064/20000 fraud rows (round 26)
+2026-06-13 06:20:40 [INFO] [fold=3] M2 pool: 7351/20000 fraud rows (round 27)
+2026-06-13 06:20:40 [INFO] [fold=3] M2 pool: 7623/20000 fraud rows (round 28)
+2026-06-13 06:20:41 [INFO] [fold=3] M2 pool: 7902/20000 fraud rows (round 29)
+2026-06-13 06:20:42 [INFO] [fold=3] M2 pool: 8177/20000 fraud rows (round 30)
+2026-06-13 06:20:42 [INFO] [fold=3] M2 pool: 8448/20000 fraud rows (round 31)
+2026-06-13 06:20:43 [INFO] [fold=3] M2 pool: 8713/20000 fraud rows (round 32)
+2026-06-13 06:20:43 [INFO] [fold=3] M2 pool: 8936/20000 fraud rows (round 33)
+2026-06-13 06:20:44 [INFO] [fold=3] M2 pool: 9192/20000 fraud rows (round 34)
+2026-06-13 06:20:45 [INFO] [fold=3] M2 pool: 9492/20000 fraud rows (round 35)
+2026-06-13 06:20:45 [INFO] [fold=3] M2 pool: 9765/20000 fraud rows (round 36)
+2026-06-13 06:20:46 [INFO] [fold=3] M2 pool: 10028/20000 fraud rows (round 37)
+2026-06-13 06:20:47 [INFO] [fold=3] M2 pool: 10337/20000 fraud rows (round 38)
+2026-06-13 06:20:47 [INFO] [fold=3] M2 pool: 10588/20000 fraud rows (round 39)
+2026-06-13 06:20:48 [INFO] [fold=3] M2 pool: 10855/20000 fraud rows (round 40)
+2026-06-13 06:20:48 [INFO] [fold=3] M2 pool: 11112/20000 fraud rows (round 41)
+2026-06-13 06:20:49 [INFO] [fold=3] M2 pool: 11364/20000 fraud rows (round 42)
+2026-06-13 06:20:50 [INFO] [fold=3] M2 pool: 11638/20000 fraud rows (round 43)
+2026-06-13 06:20:50 [INFO] [fold=3] M2 pool: 11892/20000 fraud rows (round 44)
+2026-06-13 06:20:51 [INFO] [fold=3] M2 pool: 12138/20000 fraud rows (round 45)
+2026-06-13 06:20:52 [INFO] [fold=3] M2 pool: 12388/20000 fraud rows (round 46)
+2026-06-13 06:20:52 [INFO] [fold=3] M2 pool: 12705/20000 fraud rows (round 47)
+2026-06-13 06:20:53 [INFO] [fold=3] M2 pool: 12963/20000 fraud rows (round 48)
+2026-06-13 06:20:53 [INFO] [fold=3] M2 pool: 13203/20000 fraud rows (round 49)
+2026-06-13 06:20:54 [INFO] [fold=3] M2 pool: 13480/20000 fraud rows (round 50)
+2026-06-13 06:20:55 [INFO] [fold=3] M2 pool: 13748/20000 fraud rows (round 51)
+2026-06-13 06:20:55 [INFO] [fold=3] M2 pool: 14008/20000 fraud rows (round 52)
+2026-06-13 06:20:56 [INFO] [fold=3] M2 pool: 14312/20000 fraud rows (round 53)
+2026-06-13 06:20:57 [INFO] [fold=3] M2 pool: 14573/20000 fraud rows (round 54)
+2026-06-13 06:20:57 [INFO] [fold=3] M2 pool: 14834/20000 fraud rows (round 55)
+2026-06-13 06:20:58 [INFO] [fold=3] M2 pool: 15136/20000 fraud rows (round 56)
+2026-06-13 06:20:59 [INFO] [fold=3] M2 pool: 15395/20000 fraud rows (round 57)
+2026-06-13 06:20:59 [INFO] [fold=3] M2 pool: 15664/20000 fraud rows (round 58)
+2026-06-13 06:21:00 [INFO] [fold=3] M2 pool: 15921/20000 fraud rows (round 59)
+2026-06-13 06:21:00 [INFO] [fold=3] M2 pool: 16188/20000 fraud rows (round 60)
+2026-06-13 06:21:01 [INFO] [fold=3] M2 pool: 16455/20000 fraud rows (round 61)
+2026-06-13 06:21:02 [INFO] [fold=3] M2 pool: 16717/20000 fraud rows (round 62)
+2026-06-13 06:21:02 [INFO] [fold=3] M2 pool: 17013/20000 fraud rows (round 63)
+2026-06-13 06:21:03 [INFO] [fold=3] M2 pool: 17327/20000 fraud rows (round 64)
+2026-06-13 06:21:04 [INFO] [fold=3] M2 pool: 17610/20000 fraud rows (round 65)
+2026-06-13 06:21:04 [INFO] [fold=3] M2 pool: 17868/20000 fraud rows (round 66)
+2026-06-13 06:21:05 [INFO] [fold=3] M2 pool: 18142/20000 fraud rows (round 67)
+2026-06-13 06:21:05 [INFO] [fold=3] M2 pool: 18424/20000 fraud rows (round 68)
+2026-06-13 06:21:06 [INFO] [fold=3] M2 pool: 18688/20000 fraud rows (round 69)
+2026-06-13 06:21:07 [INFO] [fold=3] M2 pool: 18977/20000 fraud rows (round 70)
+2026-06-13 06:21:07 [INFO] [fold=3] M2 pool: 19223/20000 fraud rows (round 71)
+2026-06-13 06:21:08 [INFO] [fold=3] M2 pool: 19516/20000 fraud rows (round 72)
+2026-06-13 06:21:09 [INFO] [fold=3] M2 pool: 19761/20000 fraud rows (round 73)
+2026-06-13 06:21:09 [INFO] [fold=3] M2 pool: 20020/20000 fraud rows (round 74)
+2026-06-13 06:21:09 [INFO] [fold=3] M2 pool saved: 20,000 fraud rows → /shared/paysim-sarmad/synthetic/fold_3/pool_m2.csv
+2026-06-13 06:21:09 [INFO] [fold=3] ✔ DONE  generate_m2  (46.6s)
+2026-06-13 06:21:09 [INFO] [fold=3] ▶ START generate_m3
+2026-06-13 06:21:11 [INFO] [fold=3] M3 pool saved: 189 fraud rows → /shared/paysim-sarmad/synthetic/fold_3/pool_m3.csv
+2026-06-13 06:21:11 [INFO] [fold=3] ✔ DONE  generate_m3  (1.6s)
+2026-06-13 06:21:11 [INFO] [fold=3] ✔ DONE  generate_all_pools  (48.7s)
+2026-06-13 06:21:11 [INFO] [fold=3] TOTAL elapsed: 7235.0s  (2.01h)
+2026-06-13 06:21:11 [INFO] [fold=3] stop_after_generation=True — skipping baseline_eval + optuna_studies
+2026-06-13 06:21:11 [INFO] [fold=3] Combined fraud pool exported: 40189 rows → /shared/paysim-sarmad/synthetic/for_classifier/split_3.csv
+2026-06-13 06:21:11 [INFO] [fold=3] Results saved → /shared/paysim-sarmad/results/fold_3_results.json
+2026-06-13 06:21:12 [INFO] ============================================================
+2026-06-13 06:21:12 [INFO] FOLD 4 — pipeline start
+2026-06-13 06:21:12 [INFO] ============================================================
+2026-06-13 06:21:12 [INFO] [fold=4] ▶ START load_data
+2026-06-13 06:21:22 [INFO] train: 5,090,096 rows | fraud=6,570 (0.129%)
+2026-06-13 06:21:22 [INFO] test: 1,272,524 rows | fraud=1,643 (0.129%)
+2026-06-13 06:21:22 [INFO] [fold=4] ✔ DONE  load_data  (10.7s)
+2026-06-13 06:21:26 [INFO] train_argn (holdout reserved, unused): 4,072,076 rows | fraud=5,256 (0.129%)
+2026-06-13 06:21:26 [INFO] holdout (reserved, unused): 1,018,020 rows | fraud=1,314 (0.129%)
+2026-06-13 06:21:28 [INFO] M1: 6,570 rows | fraud=6,570 (100.000%)
+2026-06-13 06:21:28 [INFO] M2: 514,922 rows | fraud=6,570 (1.276%)
+2026-06-13 06:21:28 [INFO] M3: 5,090,096 rows | fraud=6,570 (0.129%)
+2026-06-13 06:21:28 [INFO] [fold=4] ▶ START train_all_argns
+2026-06-13 06:21:30 [INFO] [fold=4] Launching M3 on cuda:1 (subprocess)
+2026-06-13 06:21:30 [INFO] [fold=4] ▶ START train_m1
+2026-06-13 06:22:22 [INFO] [fold=4] ✔ DONE  train_m1  (52.8s)
+2026-06-13 06:22:22 [INFO] [fold=4] ▶ START train_m2
+2026-06-13 06:35:24 [INFO] [fold=4] ✔ DONE  train_m2  (781.8s)
+2026-06-13 06:35:24 [INFO] [fold=4] Waiting for M3 subprocess (pid=395231) …
+2026-06-13 08:41:54 [INFO] [fold=4] M3 training done
+2026-06-13 08:41:54 [INFO] [fold=4] ✔ DONE  train_all_argns  (8426.3s)
+2026-06-13 08:41:54 [INFO] [fold=4] ▶ START generate_all_pools
+2026-06-13 08:41:54 [INFO] [fold=4] ▶ START generate_m1
+2026-06-13 08:41:54 [INFO] [fold=4] M1 pool saved: 20,000 fraud rows → /shared/paysim-sarmad/synthetic/fold_4/pool_m1.csv
+2026-06-13 08:41:54 [INFO] [fold=4] ✔ DONE  generate_m1  (0.4s)
+2026-06-13 08:41:54 [INFO] [fold=4] ▶ START generate_m2
+2026-06-13 08:41:55 [INFO] [fold=4] M2 pool: 243/20000 fraud rows (round 1)
+2026-06-13 08:41:56 [INFO] [fold=4] M2 pool: 463/20000 fraud rows (round 2)
+2026-06-13 08:41:56 [INFO] [fold=4] M2 pool: 692/20000 fraud rows (round 3)
+2026-06-13 08:41:57 [INFO] [fold=4] M2 pool: 922/20000 fraud rows (round 4)
+2026-06-13 08:41:57 [INFO] [fold=4] M2 pool: 1148/20000 fraud rows (round 5)
+2026-06-13 08:41:58 [INFO] [fold=4] M2 pool: 1389/20000 fraud rows (round 6)
+2026-06-13 08:41:59 [INFO] [fold=4] M2 pool: 1631/20000 fraud rows (round 7)
+2026-06-13 08:41:59 [INFO] [fold=4] M2 pool: 1851/20000 fraud rows (round 8)
+2026-06-13 08:42:00 [INFO] [fold=4] M2 pool: 2086/20000 fraud rows (round 9)
+2026-06-13 08:42:01 [INFO] [fold=4] M2 pool: 2344/20000 fraud rows (round 10)
+2026-06-13 08:42:01 [INFO] [fold=4] M2 pool: 2554/20000 fraud rows (round 11)
+2026-06-13 08:42:02 [INFO] [fold=4] M2 pool: 2792/20000 fraud rows (round 12)
+2026-06-13 08:42:02 [INFO] [fold=4] M2 pool: 3022/20000 fraud rows (round 13)
+2026-06-13 08:42:03 [INFO] [fold=4] M2 pool: 3267/20000 fraud rows (round 14)
+2026-06-13 08:42:04 [INFO] [fold=4] M2 pool: 3499/20000 fraud rows (round 15)
+2026-06-13 08:42:04 [INFO] [fold=4] M2 pool: 3737/20000 fraud rows (round 16)
+2026-06-13 08:42:05 [INFO] [fold=4] M2 pool: 3975/20000 fraud rows (round 17)
+2026-06-13 08:42:06 [INFO] [fold=4] M2 pool: 4210/20000 fraud rows (round 18)
+2026-06-13 08:42:06 [INFO] [fold=4] M2 pool: 4430/20000 fraud rows (round 19)
+2026-06-13 08:42:07 [INFO] [fold=4] M2 pool: 4645/20000 fraud rows (round 20)
+2026-06-13 08:42:07 [INFO] [fold=4] M2 pool: 4864/20000 fraud rows (round 21)
+2026-06-13 08:42:08 [INFO] [fold=4] M2 pool: 5098/20000 fraud rows (round 22)
+2026-06-13 08:42:09 [INFO] [fold=4] M2 pool: 5325/20000 fraud rows (round 23)
+2026-06-13 08:42:09 [INFO] [fold=4] M2 pool: 5550/20000 fraud rows (round 24)
+2026-06-13 08:42:10 [INFO] [fold=4] M2 pool: 5789/20000 fraud rows (round 25)
+2026-06-13 08:42:11 [INFO] [fold=4] M2 pool: 6016/20000 fraud rows (round 26)
+2026-06-13 08:42:11 [INFO] [fold=4] M2 pool: 6234/20000 fraud rows (round 27)
+2026-06-13 08:42:12 [INFO] [fold=4] M2 pool: 6475/20000 fraud rows (round 28)
+2026-06-13 08:42:12 [INFO] [fold=4] M2 pool: 6710/20000 fraud rows (round 29)
+2026-06-13 08:42:13 [INFO] [fold=4] M2 pool: 6939/20000 fraud rows (round 30)
+2026-06-13 08:42:14 [INFO] [fold=4] M2 pool: 7147/20000 fraud rows (round 31)
+2026-06-13 08:42:14 [INFO] [fold=4] M2 pool: 7382/20000 fraud rows (round 32)
+2026-06-13 08:42:15 [INFO] [fold=4] M2 pool: 7614/20000 fraud rows (round 33)
+2026-06-13 08:42:16 [INFO] [fold=4] M2 pool: 7823/20000 fraud rows (round 34)
+2026-06-13 08:42:16 [INFO] [fold=4] M2 pool: 8071/20000 fraud rows (round 35)
+2026-06-13 08:42:17 [INFO] [fold=4] M2 pool: 8293/20000 fraud rows (round 36)
+2026-06-13 08:42:18 [INFO] [fold=4] M2 pool: 8539/20000 fraud rows (round 37)
+2026-06-13 08:42:18 [INFO] [fold=4] M2 pool: 8813/20000 fraud rows (round 38)
+2026-06-13 08:42:19 [INFO] [fold=4] M2 pool: 9045/20000 fraud rows (round 39)
+2026-06-13 08:42:19 [INFO] [fold=4] M2 pool: 9298/20000 fraud rows (round 40)
+2026-06-13 08:42:20 [INFO] [fold=4] M2 pool: 9511/20000 fraud rows (round 41)
+2026-06-13 08:42:21 [INFO] [fold=4] M2 pool: 9714/20000 fraud rows (round 42)
+2026-06-13 08:42:21 [INFO] [fold=4] M2 pool: 9939/20000 fraud rows (round 43)
+2026-06-13 08:42:22 [INFO] [fold=4] M2 pool: 10165/20000 fraud rows (round 44)
+2026-06-13 08:42:22 [INFO] [fold=4] M2 pool: 10393/20000 fraud rows (round 45)
+2026-06-13 08:42:23 [INFO] [fold=4] M2 pool: 10612/20000 fraud rows (round 46)
+2026-06-13 08:42:24 [INFO] [fold=4] M2 pool: 10834/20000 fraud rows (round 47)
+2026-06-13 08:42:24 [INFO] [fold=4] M2 pool: 11076/20000 fraud rows (round 48)
+2026-06-13 08:42:25 [INFO] [fold=4] M2 pool: 11307/20000 fraud rows (round 49)
+2026-06-13 08:42:26 [INFO] [fold=4] M2 pool: 11526/20000 fraud rows (round 50)
+2026-06-13 08:42:26 [INFO] [fold=4] M2 pool: 11737/20000 fraud rows (round 51)
+2026-06-13 08:42:27 [INFO] [fold=4] M2 pool: 11964/20000 fraud rows (round 52)
+2026-06-13 08:42:28 [INFO] [fold=4] M2 pool: 12169/20000 fraud rows (round 53)
+2026-06-13 08:42:28 [INFO] [fold=4] M2 pool: 12392/20000 fraud rows (round 54)
+2026-06-13 08:42:29 [INFO] [fold=4] M2 pool: 12630/20000 fraud rows (round 55)
+2026-06-13 08:42:29 [INFO] [fold=4] M2 pool: 12855/20000 fraud rows (round 56)
+2026-06-13 08:42:30 [INFO] [fold=4] M2 pool: 13112/20000 fraud rows (round 57)
+2026-06-13 08:42:31 [INFO] [fold=4] M2 pool: 13358/20000 fraud rows (round 58)
+2026-06-13 08:42:31 [INFO] [fold=4] M2 pool: 13597/20000 fraud rows (round 59)
+2026-06-13 08:42:32 [INFO] [fold=4] M2 pool: 13846/20000 fraud rows (round 60)
+2026-06-13 08:42:33 [INFO] [fold=4] M2 pool: 14088/20000 fraud rows (round 61)
+2026-06-13 08:42:33 [INFO] [fold=4] M2 pool: 14319/20000 fraud rows (round 62)
+2026-06-13 08:42:34 [INFO] [fold=4] M2 pool: 14557/20000 fraud rows (round 63)
+2026-06-13 08:42:34 [INFO] [fold=4] M2 pool: 14773/20000 fraud rows (round 64)
+2026-06-13 08:42:35 [INFO] [fold=4] M2 pool: 15001/20000 fraud rows (round 65)
+2026-06-13 08:42:36 [INFO] [fold=4] M2 pool: 15232/20000 fraud rows (round 66)
+2026-06-13 08:42:36 [INFO] [fold=4] M2 pool: 15452/20000 fraud rows (round 67)
+2026-06-13 08:42:37 [INFO] [fold=4] M2 pool: 15674/20000 fraud rows (round 68)
+2026-06-13 08:42:38 [INFO] [fold=4] M2 pool: 15903/20000 fraud rows (round 69)
+2026-06-13 08:42:38 [INFO] [fold=4] M2 pool: 16117/20000 fraud rows (round 70)
+2026-06-13 08:42:39 [INFO] [fold=4] M2 pool: 16326/20000 fraud rows (round 71)
+2026-06-13 08:42:40 [INFO] [fold=4] M2 pool: 16533/20000 fraud rows (round 72)
+2026-06-13 08:42:40 [INFO] [fold=4] M2 pool: 16755/20000 fraud rows (round 73)
+2026-06-13 08:42:41 [INFO] [fold=4] M2 pool: 16976/20000 fraud rows (round 74)
+2026-06-13 08:42:41 [INFO] [fold=4] M2 pool: 17205/20000 fraud rows (round 75)
+2026-06-13 08:42:42 [INFO] [fold=4] M2 pool: 17438/20000 fraud rows (round 76)
+2026-06-13 08:42:43 [INFO] [fold=4] M2 pool: 17675/20000 fraud rows (round 77)
+2026-06-13 08:42:43 [INFO] [fold=4] M2 pool: 17907/20000 fraud rows (round 78)
+2026-06-13 08:42:44 [INFO] [fold=4] M2 pool: 18155/20000 fraud rows (round 79)
+2026-06-13 08:42:44 [INFO] [fold=4] M2 pool: 18398/20000 fraud rows (round 80)
+2026-06-13 08:42:45 [INFO] [fold=4] M2 pool: 18637/20000 fraud rows (round 81)
+2026-06-13 08:42:46 [INFO] [fold=4] M2 pool: 18870/20000 fraud rows (round 82)
+2026-06-13 08:42:46 [INFO] [fold=4] M2 pool: 19095/20000 fraud rows (round 83)
+2026-06-13 08:42:47 [INFO] [fold=4] M2 pool: 19332/20000 fraud rows (round 84)
+2026-06-13 08:42:48 [INFO] [fold=4] M2 pool: 19551/20000 fraud rows (round 85)
+2026-06-13 08:42:48 [INFO] [fold=4] M2 pool: 19781/20000 fraud rows (round 86)
+2026-06-13 08:42:49 [INFO] [fold=4] M2 pool: 20025/20000 fraud rows (round 87)
+2026-06-13 08:42:49 [INFO] [fold=4] M2 pool saved: 20,000 fraud rows → /shared/paysim-sarmad/synthetic/fold_4/pool_m2.csv
+2026-06-13 08:42:49 [INFO] [fold=4] ✔ DONE  generate_m2  (54.8s)
+2026-06-13 08:42:49 [INFO] [fold=4] ▶ START generate_m3
+2026-06-13 08:42:51 [INFO] [fold=4] M3 pool saved: 175 fraud rows → /shared/paysim-sarmad/synthetic/fold_4/pool_m3.csv
+2026-06-13 08:42:51 [INFO] [fold=4] ✔ DONE  generate_m3  (1.6s)
+2026-06-13 08:42:51 [INFO] [fold=4] ✔ DONE  generate_all_pools  (56.9s)
+2026-06-13 08:42:51 [INFO] [fold=4] TOTAL elapsed: 8499.1s  (2.36h)
+2026-06-13 08:42:51 [INFO] [fold=4] stop_after_generation=True — skipping baseline_eval + optuna_studies
+2026-06-13 08:42:51 [INFO] [fold=4] Combined fraud pool exported: 40175 rows → /shared/paysim-sarmad/synthetic/for_classifier/split_4.csv
+2026-06-13 08:42:51 [INFO] [fold=4] Results saved → /shared/paysim-sarmad/results/fold_4_results.json
+2026-06-13 08:42:51 [INFO] 
+============================================================
+2026-06-13 08:42:51 [INFO] AGGREGATE RESULTS (mean ± std across folds)
+2026-06-13 08:42:51 [INFO] ============================================================
+2026-06-13 08:42:51 [INFO] 
+── XGB ──
+2026-06-13 08:42:51 [INFO]   baseline:
+2026-06-13 08:42:51 [INFO]   augmented:
+2026-06-13 08:42:51 [INFO] 
+── LGBM ──
+2026-06-13 08:42:51 [INFO]   baseline:
+2026-06-13 08:42:51 [INFO]   augmented:
+2026-06-13 08:42:51 [INFO] 
+── CATBOOST ──
+2026-06-13 08:42:51 [INFO]   baseline:
+2026-06-13 08:42:51 [INFO]   augmented:
+2026-06-13 08:42:51 [INFO] 
+Combined results → /shared/paysim-sarmad/results/combined_metrics.json

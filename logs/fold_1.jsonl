@@ -1,0 +1,16 @@
+{"stage": "load_data", "fold": 1, "status": "started", "ts": 1781304196.1805453}
+{"stage": "load_data", "fold": 1, "status": "done", "elapsed_s": 13.5, "ts": 1781304209.7058194}
+{"stage": "train_all_argns", "fold": 1, "status": "started", "ts": 1781304216.0536256}
+{"stage": "train_m1", "fold": 1, "status": "started", "ts": 1781304218.6260824, "rows": 6570, "fraud": 6570}
+{"stage": "train_m1", "fold": 1, "status": "done", "elapsed_s": 96.4, "ts": 1781304315.0650427}
+{"stage": "train_m2", "fold": 1, "status": "started", "ts": 1781304315.0815465, "rows": 514922, "fraud": 6570}
+{"stage": "train_m2", "fold": 1, "status": "done", "elapsed_s": 976.7, "ts": 1781305291.7917082}
+{"stage": "train_all_argns", "fold": 1, "status": "done", "elapsed_s": 9783.9, "ts": 1781313999.9284463}
+{"stage": "generate_all_pools", "fold": 1, "status": "started", "ts": 1781313999.9423122}
+{"stage": "generate_m1", "fold": 1, "status": "started", "ts": 1781313999.942654}
+{"stage": "generate_m1", "fold": 1, "status": "done", "elapsed_s": 0.5, "ts": 1781314000.4796972}
+{"stage": "generate_m2", "fold": 1, "status": "started", "ts": 1781314000.4934042}
+{"stage": "generate_m2", "fold": 1, "status": "done", "elapsed_s": 50.0, "ts": 1781314050.536798}
+{"stage": "generate_m3", "fold": 1, "status": "started", "ts": 1781314050.5526075}
+{"stage": "generate_m3", "fold": 1, "status": "done", "elapsed_s": 1.6, "ts": 1781314052.1824205}
+{"stage": "generate_all_pools", "fold": 1, "status": "done", "elapsed_s": 52.3, "ts": 1781314052.1991303}

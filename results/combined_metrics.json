@@ -1,0 +1,27 @@
+[
+  {
+    "fold": 0,
+    "total_elapsed_s": 10756.8,
+    "export_fraud_rows": 40198
+  },
+  {
+    "fold": 1,
+    "total_elapsed_s": 9856.1,
+    "export_fraud_rows": 40157
+  },
+  {
+    "fold": 2,
+    "total_elapsed_s": 10383.0,
+    "export_fraud_rows": 40167
+  },
+  {
+    "fold": 3,
+    "total_elapsed_s": 7235.0,
+    "export_fraud_rows": 40189
+  },
+  {
+    "fold": 4,
+    "total_elapsed_s": 8499.1,
+    "export_fraud_rows": 40175
+  }
+]
