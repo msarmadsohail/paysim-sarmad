@@ -1,16 +1,10 @@
-{"stage": "load_data", "fold": 3, "status": "started", "ts": 1781324436.600238}
-{"stage": "load_data", "fold": 3, "status": "done", "elapsed_s": 11.2, "ts": 1781324447.850253}
-{"stage": "train_all_argns", "fold": 3, "status": "started", "ts": 1781324453.0951076}
-{"stage": "train_m1", "fold": 3, "status": "started", "ts": 1781324455.3506584, "rows": 6570, "fraud": 6570}
-{"stage": "train_m1", "fold": 3, "status": "done", "elapsed_s": 59.7, "ts": 1781324515.046475}
-{"stage": "train_m2", "fold": 3, "status": "started", "ts": 1781324515.0606046, "rows": 514922, "fraud": 6570}
-{"stage": "train_m2", "fold": 3, "status": "done", "elapsed_s": 873.5, "ts": 1781325388.578978}
-{"stage": "train_all_argns", "fold": 3, "status": "done", "elapsed_s": 7169.7, "ts": 1781331622.7783945}
-{"stage": "generate_all_pools", "fold": 3, "status": "started", "ts": 1781331622.7922935}
-{"stage": "generate_m1", "fold": 3, "status": "started", "ts": 1781331622.7925825}
-{"stage": "generate_m1", "fold": 3, "status": "done", "elapsed_s": 0.4, "ts": 1781331623.2360256}
-{"stage": "generate_m2", "fold": 3, "status": "started", "ts": 1781331623.250285}
-{"stage": "generate_m2", "fold": 3, "status": "done", "elapsed_s": 46.6, "ts": 1781331669.841428}
-{"stage": "generate_m3", "fold": 3, "status": "started", "ts": 1781331669.8573148}
-{"stage": "generate_m3", "fold": 3, "status": "done", "elapsed_s": 1.6, "ts": 1781331671.4624143}
-{"stage": "generate_all_pools", "fold": 3, "status": "done", "elapsed_s": 48.7, "ts": 1781331671.481009}
+{"stage": "load_data", "fold": 3, "status": "started", "ts": 1781353177.7422678}
+{"stage": "load_data", "fold": 3, "status": "done", "elapsed_s": 10.5, "ts": 1781353188.2209249}
+{"stage": "generate_all_pools", "fold": 3, "status": "started", "ts": 1781353193.0189097}
+{"stage": "generate_m1", "fold": 3, "status": "started", "ts": 1781353193.0193603}
+{"stage": "generate_m2", "fold": 3, "status": "started", "ts": 1781353193.019548}
+{"stage": "generate_m3", "fold": 3, "status": "started", "ts": 1781353193.019828}
+{"stage": "generate_m1", "fold": 3, "status": "done", "elapsed_s": 3.6, "ts": 1781353196.646197}
+{"stage": "generate_m2", "fold": 3, "status": "done", "elapsed_s": 408.2, "ts": 1781353601.211584}
+{"stage": "generate_m3", "fold": 3, "status": "done", "elapsed_s": 567.5, "ts": 1781353760.536066}
+{"stage": "generate_all_pools", "fold": 3, "status": "done", "elapsed_s": 567.9, "ts": 1781353760.8804493}

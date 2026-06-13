@@ -1,27 +1,27 @@
 [
   {
     "fold": 0,
-    "total_elapsed_s": 10756.8,
-    "export_fraud_rows": 40198
+    "total_elapsed_s": 581.1,
+    "export_fraud_rows": 306066
   },
   {
     "fold": 1,
-    "total_elapsed_s": 9856.1,
-    "export_fraud_rows": 40157
+    "total_elapsed_s": 588.1,
+    "export_fraud_rows": 304971
   },
   {
     "fold": 2,
-    "total_elapsed_s": 10383.0,
-    "export_fraud_rows": 40167
+    "total_elapsed_s": 613.9,
+    "export_fraud_rows": 304192
   },
   {
     "fold": 3,
-    "total_elapsed_s": 7235.0,
-    "export_fraud_rows": 40189
+    "total_elapsed_s": 583.4,
+    "export_fraud_rows": 304141
   },
   {
     "fold": 4,
-    "total_elapsed_s": 8499.1,
-    "export_fraud_rows": 40175
+    "total_elapsed_s": 600.1,
+    "export_fraud_rows": 305063
   }
 ]
