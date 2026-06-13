@@ -3,9 +3,10 @@ Synthetic fraud generation from the three trained ARGN models.
 
 M1 (fraud-only)  : generate freely — all rows are already fraud.
 M2 (fraud+10%NF) : generate freely in batches; keep only fraud rows until pool is full.
-M3 (full train)  : generate with RebalancingConfig(isFraud → 0.5); filter fraud rows.
+M3 (full train)  : single free pass, no rebalancing — take whatever fraud rows the
+                   model naturally produces. Preserves the model's learned precision/recall.
 
-Each model contributes up to POOL_PER_MODEL fraud rows saved to SYNTH_DIR/fold_X/.
+M1 and M2 target POOL_PER_MODEL fraud rows. M3 is uncapped — natural yield only.
 """
 
 import warnings
@@ -15,7 +16,7 @@ import pandas as pd
 
 from config import (
     SYNTH_DIR, TARGET, FRAUD_VAL,
-    POOL_PER_MODEL, M2_GEN_BATCH, M3_REBAL_PROB,
+    POOL_PER_MODEL, M2_GEN_BATCH, M3_GEN_BATCH,
     GPU_M1_M2, GPU_M3,
 )
 import tracking as T
@@ -42,8 +43,6 @@ def _generate_free_batched(argn, target: int, batch: int, label: str, fold: int)
 
 def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path, Path, Path]:
     warnings.filterwarnings("ignore")
-    from mostlyai.engine import TabularARGN
-    from mostlyai.engine.domain import RebalancingConfig
     from train_argn import load_argn
 
     out_dir = SYNTH_DIR / f"fold_{fold}"
@@ -72,16 +71,11 @@ def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path
         pool_m2.to_csv(p_m2, index=False)
         T.log.info(f"[fold={fold}] M2 pool saved: {len(pool_m2):,} fraud rows → {p_m2}")
 
-    # ── M3: rebalanced 50/50, filter fraud ───────────────────────────────────
+    # ── M3: single free pass, no rebalancing — natural yield only ────────────
     with T.timed("generate_m3", fold):
         m3 = load_argn(ws_m3, device=f"cuda:{GPU_M3}")
-        rebal = RebalancingConfig(column=TARGET, probabilities={str(FRAUD_VAL): M3_REBAL_PROB})
-        # need ~2× target rows to get POOL_PER_MODEL fraud at 50% rate
-        raw_m3 = m3.sample(n_samples=POOL_PER_MODEL * 3, rebalancing=rebal)
-        pool_m3 = _filter_fraud(raw_m3).head(POOL_PER_MODEL)
-        if len(pool_m3) < POOL_PER_MODEL:
-            extra = m3.sample(n_samples=POOL_PER_MODEL * 4, rebalancing=rebal)
-            pool_m3 = pd.concat([pool_m3, _filter_fraud(extra)], ignore_index=True).head(POOL_PER_MODEL)
+        raw_m3 = m3.sample(n_samples=M3_GEN_BATCH)
+        pool_m3 = _filter_fraud(raw_m3)
         pool_m3.to_csv(p_m3, index=False)
         T.log.info(f"[fold={fold}] M3 pool saved: {len(pool_m3):,} fraud rows → {p_m3}")
 

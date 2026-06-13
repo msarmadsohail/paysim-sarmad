@@ -27,9 +27,10 @@ M3_MAX_EPOCHS = 100
 M2_NONFR_FRAC = 0.10          # 10% of non-fraud rows for M2
 
 # generation
-POOL_PER_MODEL  = 20_000      # target fraud rows to collect per model
+POOL_PER_MODEL  = 20_000      # target fraud rows to collect per M1 and M2
 M2_GEN_BATCH    = 50_000      # rows generated per batch while filling M2 pool
-M3_REBAL_PROB   = 0.5         # isFraud probability for M3 RebalancingConfig
+M3_GEN_BATCH    = 100_000     # rows generated per single free pass for M3 (no target cap)
+# M3_REBAL_PROB removed — M3 generates freely, no rebalancing hint
 
 # GPU assignment
 GPU_M1_M2 = 0
