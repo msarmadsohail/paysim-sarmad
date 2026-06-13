@@ -27,14 +27,19 @@ M3_MAX_EPOCHS = 100
 M2_NONFR_FRAC = 0.10          # 10% of non-fraud rows for M2
 
 # generation
-POOL_PER_MODEL  = 20_000      # target fraud rows to collect per M1 and M2
-M2_GEN_BATCH    = 50_000      # rows generated per batch while filling M2 pool
-M3_GEN_BATCH    = 100_000     # rows generated per single free pass for M3 (no target cap)
-# M3_REBAL_PROB removed — M3 generates freely, no rebalancing hint
+M1_POOL_TARGET  = 150_000     # target fraud rows — M1 batched free generation
+M2_POOL_TARGET  = 150_000     # target fraud rows — M2 batched free generation
+M1_GEN_BATCH    = 150_000     # batch size for M1 (100% fraud, one pass usually enough)
+M2_GEN_BATCH    = 50_000      # batch size for M2 (~1.3% fraud rate in output)
+M3_GEN_BATCH    = 5_000_000   # single free pass for M3 — natural yield, no target cap
 
-# GPU assignment
-GPU_M1_M2 = 0
-GPU_M3    = 1
+# legacy alias kept for build_augmented_train compatibility
+POOL_PER_MODEL  = 150_000
+
+# GPU assignment — all 3 models run in parallel
+GPU_M1 = 0
+GPU_M2 = 1
+GPU_M3 = 2
 
 # Optuna
 OPTUNA_TRIALS = 100

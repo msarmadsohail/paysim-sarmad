@@ -6,6 +6,9 @@ Usage:
   # run all 5 folds — train + generate pools only (default)
   python run.py
 
+  # generation only — skip training, use saved model weights
+  python run.py --generation-only
+
   # run a specific fold
   python run.py --fold 0
 
@@ -75,17 +78,19 @@ def main() -> None:
     parser.add_argument("--fold", type=int, default=None, help="Run a single fold (0-4). Default: all folds.")
     parser.add_argument("--skip-training",   action="store_true")
     parser.add_argument("--skip-generation", action="store_true")
+    parser.add_argument("--generation-only", action="store_true", help="Skip training, use saved weights. Shorthand for --skip-training.")
     parser.add_argument("--full-pipeline",   action="store_true", help="Also run baseline eval + Optuna HPO after generation.")
     args = parser.parse_args()
 
     folds = [args.fold] if args.fold is not None else list(range(N_FOLDS))
     stop_after_generation = not args.full_pipeline
+    skip_training = args.skip_training or args.generation_only
 
     for fold in folds:
         try:
             run_fold(
                 fold,
-                skip_training=args.skip_training,
+                skip_training=skip_training,
                 skip_generation=args.skip_generation,
                 stop_after_generation=stop_after_generation,
             )

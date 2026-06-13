@@ -1,23 +1,26 @@
 """
 Synthetic fraud generation from the three trained ARGN models.
 
-M1 (fraud-only)  : generate freely — all rows are already fraud.
-M2 (fraud+10%NF) : generate freely in batches; keep only fraud rows until pool is full.
-M3 (full train)  : single free pass, no rebalancing — take whatever fraud rows the
-                   model naturally produces. Preserves the model's learned precision/recall.
+M1 (fraud-only)  : batched free generation — target M1_POOL_TARGET fraud rows, GPU 0.
+M2 (fraud+10%NF) : batched free generation — target M2_POOL_TARGET fraud rows, GPU 1.
+M3 (full train)  : single free pass of M3_GEN_BATCH samples, natural yield, GPU 2.
+                   No rebalancing — preserves learned precision/recall.
 
-M1 and M2 target POOL_PER_MODEL fraud rows. M3 is uncapped — natural yield only.
+All three models generate in parallel (one thread each). Folds run sequentially.
 """
 
 import warnings
+import threading
 from pathlib import Path
 
 import pandas as pd
 
 from config import (
     SYNTH_DIR, TARGET, FRAUD_VAL,
-    POOL_PER_MODEL, M2_GEN_BATCH, M3_GEN_BATCH,
-    GPU_M1_M2, GPU_M3,
+    M1_POOL_TARGET, M2_POOL_TARGET,
+    M1_GEN_BATCH, M2_GEN_BATCH, M3_GEN_BATCH,
+    POOL_PER_MODEL,
+    GPU_M1, GPU_M2, GPU_M3,
 )
 import tracking as T
 
@@ -37,14 +40,45 @@ def _generate_free_batched(argn, target: int, batch: int, label: str, fold: int)
         collected.append(fraud_chunk)
         total += len(fraud_chunk)
         rounds += 1
-        T.log.info(f"[fold={fold}] {label} pool: {total}/{target} fraud rows (round {rounds})")
+        T.log.info(f"[fold={fold}] {label} pool: {total:,}/{target:,} fraud rows (round {rounds})")
     return pd.concat(collected, ignore_index=True).head(target)
 
 
-def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path, Path, Path]:
+def _run_m1(ws_m1: Path, fold: int, out_path: Path, results: dict) -> None:
     warnings.filterwarnings("ignore")
     from train_argn import load_argn
+    with T.timed("generate_m1", fold):
+        m1 = load_argn(ws_m1, device=f"cuda:{GPU_M1}")
+        pool = _generate_free_batched(m1, M1_POOL_TARGET, M1_GEN_BATCH, "M1", fold)
+        pool.to_csv(out_path, index=False)
+        T.log.info(f"[fold={fold}] M1 pool saved: {len(pool):,} fraud rows → {out_path}")
+        results["m1"] = pool
 
+
+def _run_m2(ws_m2: Path, fold: int, out_path: Path, results: dict) -> None:
+    warnings.filterwarnings("ignore")
+    from train_argn import load_argn
+    with T.timed("generate_m2", fold):
+        m2 = load_argn(ws_m2, device=f"cuda:{GPU_M2}")
+        pool = _generate_free_batched(m2, M2_POOL_TARGET, M2_GEN_BATCH, "M2", fold)
+        pool.to_csv(out_path, index=False)
+        T.log.info(f"[fold={fold}] M2 pool saved: {len(pool):,} fraud rows → {out_path}")
+        results["m2"] = pool
+
+
+def _run_m3(ws_m3: Path, fold: int, out_path: Path, results: dict) -> None:
+    warnings.filterwarnings("ignore")
+    from train_argn import load_argn
+    with T.timed("generate_m3", fold):
+        m3 = load_argn(ws_m3, device=f"cuda:{GPU_M3}")
+        raw = m3.sample(n_samples=M3_GEN_BATCH)
+        pool = _filter_fraud(raw)
+        pool.to_csv(out_path, index=False)
+        T.log.info(f"[fold={fold}] M3 pool saved: {len(pool):,} fraud rows (natural yield from {M3_GEN_BATCH:,} samples) → {out_path}")
+        results["m3"] = pool
+
+
+def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path, Path, Path]:
     out_dir = SYNTH_DIR / f"fold_{fold}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -52,32 +86,18 @@ def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path
     p_m2 = out_dir / "pool_m2.csv"
     p_m3 = out_dir / "pool_m3.csv"
 
-    # ── M1: free generation (100% fraud by design) ──────────────────────────
-    with T.timed("generate_m1", fold):
-        m1 = load_argn(ws_m1, device=f"cuda:{GPU_M1_M2}")
-        raw = m1.sample(n_samples=POOL_PER_MODEL)
-        pool_m1 = _filter_fraud(raw)
-        # top-up if model generated a few non-fraud (shouldn't happen but guard)
-        if len(pool_m1) < POOL_PER_MODEL:
-            extra = m1.sample(n_samples=(POOL_PER_MODEL - len(pool_m1)) * 2)
-            pool_m1 = pd.concat([pool_m1, _filter_fraud(extra)], ignore_index=True).head(POOL_PER_MODEL)
-        pool_m1.to_csv(p_m1, index=False)
-        T.log.info(f"[fold={fold}] M1 pool saved: {len(pool_m1):,} fraud rows → {p_m1}")
+    results = {}
+    threads = [
+        threading.Thread(target=_run_m1, args=(ws_m1, fold, p_m1, results)),
+        threading.Thread(target=_run_m2, args=(ws_m2, fold, p_m2, results)),
+        threading.Thread(target=_run_m3, args=(ws_m3, fold, p_m3, results)),
+    ]
 
-    # ── M2: free batched generation ──────────────────────────────────────────
-    with T.timed("generate_m2", fold):
-        m2 = load_argn(ws_m2, device=f"cuda:{GPU_M1_M2}")
-        pool_m2 = _generate_free_batched(m2, POOL_PER_MODEL, M2_GEN_BATCH, "M2", fold)
-        pool_m2.to_csv(p_m2, index=False)
-        T.log.info(f"[fold={fold}] M2 pool saved: {len(pool_m2):,} fraud rows → {p_m2}")
-
-    # ── M3: single free pass, no rebalancing — natural yield only ────────────
-    with T.timed("generate_m3", fold):
-        m3 = load_argn(ws_m3, device=f"cuda:{GPU_M3}")
-        raw_m3 = m3.sample(n_samples=M3_GEN_BATCH)
-        pool_m3 = _filter_fraud(raw_m3)
-        pool_m3.to_csv(p_m3, index=False)
-        T.log.info(f"[fold={fold}] M3 pool saved: {len(pool_m3):,} fraud rows → {p_m3}")
+    T.log.info(f"[fold={fold}] Launching M1 (GPU {GPU_M1}), M2 (GPU {GPU_M2}), M3 (GPU {GPU_M3}) in parallel")
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
 
     return p_m1, p_m2, p_m3
 
