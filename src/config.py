@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 BASE_DIR   = Path("/shared/paysim-sarmad")
@@ -11,7 +12,7 @@ LOG_DIR    = BASE_DIR / "logs"
 N_FOLDS = 5
 
 # columns
-DROP_COLS  = ["nameOrig", "nameDest"]
+DROP_COLS  = ["nameOrig", "nameDest", "isFlaggedFraud", "newbalanceOrig"]
 TARGET     = "isFraud"
 FRAUD_VAL  = 1
 STRAT_COL  = "type"          # used for M2 stratified non-fraud sampling
@@ -36,10 +37,12 @@ M3_GEN_BATCH    = 15_000_000  # single free pass for M3 — natural yield, no ta
 # legacy alias kept for build_augmented_train compatibility
 POOL_PER_MODEL  = 150_000
 
-# GPU assignment — all 3 models run in parallel
-GPU_M1 = 0
-GPU_M2 = 1
-GPU_M3 = 2
+# GPU assignment — overridable via env vars for parallel fold execution.
+# run_parallel.py sets CUDA_VISIBLE_DEVICES to expose only 2 physical GPUs
+# per fold process, so M3 shares cuda:1 with M2 (sequential, no conflict).
+GPU_M1 = int(os.environ.get("ARGN_GPU_M1", 0))
+GPU_M2 = int(os.environ.get("ARGN_GPU_M2", 1))
+GPU_M3 = int(os.environ.get("ARGN_GPU_M3", 2))
 
 # Optuna
 OPTUNA_TRIALS = 100

@@ -29,6 +29,18 @@ def _filter_fraud(df: pd.DataFrame) -> pd.DataFrame:
     return df[df[TARGET] == FRAUD_VAL].reset_index(drop=True)
 
 
+def _recompute_newbalanceOrig(df: pd.DataFrame) -> pd.DataFrame:
+    """Recompute newbalanceOrig post-generation using type-aware formula.
+    CASH_IN adds to sender balance; all others drain it (floored at 0).
+    """
+    df = df.copy()
+    cash_in_mask = df["type"].str.upper() == "CASH_IN"
+    df["newbalanceOrig"] = 0.0
+    df.loc[cash_in_mask, "newbalanceOrig"] = df.loc[cash_in_mask, "oldbalanceOrg"] + df.loc[cash_in_mask, "amount"]
+    df.loc[~cash_in_mask, "newbalanceOrig"] = (df.loc[~cash_in_mask, "oldbalanceOrg"] - df.loc[~cash_in_mask, "amount"]).clip(lower=0)
+    return df
+
+
 def _generate_free_batched(argn, target: int, batch: int, label: str, fold: int) -> pd.DataFrame:
     """Generate in batches until `target` fraud rows are collected."""
     collected: list[pd.DataFrame] = []
@@ -50,6 +62,7 @@ def _run_m1(ws_m1: Path, fold: int, out_path: Path, results: dict) -> None:
     with T.timed("generate_m1", fold):
         m1 = load_argn(ws_m1, device=f"cuda:{GPU_M1}")
         pool = _generate_free_batched(m1, M1_POOL_TARGET, M1_GEN_BATCH, "M1", fold)
+        pool = _recompute_newbalanceOrig(pool)
         pool.to_csv(out_path, index=False)
         T.log.info(f"[fold={fold}] M1 pool saved: {len(pool):,} fraud rows → {out_path}")
         results["m1"] = pool
@@ -61,6 +74,7 @@ def _run_m2(ws_m2: Path, fold: int, out_path: Path, results: dict) -> None:
     with T.timed("generate_m2", fold):
         m2 = load_argn(ws_m2, device=f"cuda:{GPU_M2}")
         pool = _generate_free_batched(m2, M2_POOL_TARGET, M2_GEN_BATCH, "M2", fold)
+        pool = _recompute_newbalanceOrig(pool)
         pool.to_csv(out_path, index=False)
         T.log.info(f"[fold={fold}] M2 pool saved: {len(pool):,} fraud rows → {out_path}")
         results["m2"] = pool
@@ -73,6 +87,7 @@ def _run_m3(ws_m3: Path, fold: int, out_path: Path, results: dict) -> None:
         m3 = load_argn(ws_m3, device=f"cuda:{GPU_M3}")
         raw = m3.sample(n_samples=M3_GEN_BATCH)
         pool = _filter_fraud(raw)
+        pool = _recompute_newbalanceOrig(pool)
         pool.to_csv(out_path, index=False)
         T.log.info(f"[fold={fold}] M3 pool saved: {len(pool):,} fraud rows (natural yield from {M3_GEN_BATCH:,} samples) → {out_path}")
         results["m3"] = pool
@@ -87,17 +102,28 @@ def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path
     p_m3 = out_dir / "pool_m3.csv"
 
     results = {}
-    threads = [
-        threading.Thread(target=_run_m1, args=(ws_m1, fold, p_m1, results)),
-        threading.Thread(target=_run_m2, args=(ws_m2, fold, p_m2, results)),
-        threading.Thread(target=_run_m3, args=(ws_m3, fold, p_m3, results)),
-    ]
 
-    T.log.info(f"[fold={fold}] Launching M1 (GPU {GPU_M1}), M2 (GPU {GPU_M2}), M3 (GPU {GPU_M3}) in parallel")
-    for t in threads:
-        t.start()
-    for t in threads:
-        t.join()
+    if GPU_M1 == GPU_M2:
+        # M1 and M2 share a GPU — run sequentially on cuda:0, M3 runs in parallel on cuda:1.
+        # This is the parallel-fold layout: M3 gets dedicated GPU for its heavy 15M-sample pass.
+        T.log.info(f"[fold={fold}] GPU_M1==GPU_M2=={GPU_M1}: M1→M2 sequential on cuda:{GPU_M1}, M3 parallel on cuda:{GPU_M3}")
+        t_m3 = threading.Thread(target=_run_m3, args=(ws_m3, fold, p_m3, results))
+        t_m3.start()
+        _run_m1(ws_m1, fold, p_m1, results)
+        _run_m2(ws_m2, fold, p_m2, results)
+        t_m3.join()
+    else:
+        # All 3 GPUs distinct (default single-fold run) — full parallelism.
+        T.log.info(f"[fold={fold}] Launching M1 (GPU {GPU_M1}), M2 (GPU {GPU_M2}), M3 (GPU {GPU_M3}) in parallel")
+        t_m1 = threading.Thread(target=_run_m1, args=(ws_m1, fold, p_m1, results))
+        t_m2 = threading.Thread(target=_run_m2, args=(ws_m2, fold, p_m2, results))
+        t_m3 = threading.Thread(target=_run_m3, args=(ws_m3, fold, p_m3, results))
+        t_m1.start()
+        t_m2.start()
+        t_m3.start()
+        t_m1.join()
+        t_m2.join()
+        t_m3.join()
 
     return p_m1, p_m2, p_m3
 
