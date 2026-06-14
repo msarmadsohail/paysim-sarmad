@@ -80,8 +80,8 @@ def _run_pair(fold_a: int, fold_b: int | None) -> None:
 def main() -> None:
     rounds = [
         (0, 1),
-        (2, 3),
-        (4, None),
+        # (2, 3),
+        # (4, None),
     ]
 
     total_start = time.time()
