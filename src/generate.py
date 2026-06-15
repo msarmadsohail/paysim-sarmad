@@ -62,7 +62,6 @@ def _run_m1(ws_m1: Path, fold: int, out_path: Path, results: dict) -> None:
     with T.timed("generate_m1", fold):
         m1 = load_argn(ws_m1, device=f"cuda:{GPU_M1}")
         pool = _generate_free_batched(m1, M1_POOL_TARGET, M1_GEN_BATCH, "M1", fold)
-        pool = _recompute_newbalanceOrig(pool)
         pool.to_csv(out_path, index=False)
         T.log.info(f"[fold={fold}] M1 pool saved: {len(pool):,} fraud rows → {out_path}")
         results["m1"] = pool
@@ -103,38 +102,19 @@ def generate_all(ws_m1: Path, ws_m2: Path, ws_m3: Path, fold: int) -> tuple[Path
 
     results = {}
 
-    if GPU_M1 == GPU_M2:
-        # M1 and M2 share a GPU — run sequentially on cuda:0, M3 runs in parallel on cuda:1.
-        # This is the parallel-fold layout: M3 gets dedicated GPU for its heavy 15M-sample pass.
-        T.log.info(f"[fold={fold}] GPU_M1==GPU_M2=={GPU_M1}: M1→M2 sequential on cuda:{GPU_M1}, M3 parallel on cuda:{GPU_M3}")
-        t_m3 = threading.Thread(target=_run_m3, args=(ws_m3, fold, p_m3, results))
-        t_m3.start()
-        _run_m1(ws_m1, fold, p_m1, results)
-        _run_m2(ws_m2, fold, p_m2, results)
-        t_m3.join()
-    else:
-        # All 3 GPUs distinct (default single-fold run) — full parallelism.
-        T.log.info(f"[fold={fold}] Launching M1 (GPU {GPU_M1}), M2 (GPU {GPU_M2}), M3 (GPU {GPU_M3}) in parallel")
-        t_m1 = threading.Thread(target=_run_m1, args=(ws_m1, fold, p_m1, results))
-        t_m2 = threading.Thread(target=_run_m2, args=(ws_m2, fold, p_m2, results))
-        t_m3 = threading.Thread(target=_run_m3, args=(ws_m3, fold, p_m3, results))
-        t_m1.start()
-        t_m2.start()
-        t_m3.start()
-        t_m1.join()
-        t_m2.join()
-        t_m3.join()
+    # M1 only — single GPU, no threading needed
+    T.log.info(f"[fold={fold}] Generating M1 only on cuda:{GPU_M1}")
+    _run_m1(ws_m1, fold, p_m1, results)
 
     return p_m1, p_m2, p_m3
 
 
-def load_pools(fold: int) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def load_pools(fold: int) -> tuple[pd.DataFrame, pd.DataFrame | None, pd.DataFrame | None]:
     out_dir = SYNTH_DIR / f"fold_{fold}"
-    return (
-        pd.read_csv(out_dir / "pool_m1.csv"),
-        pd.read_csv(out_dir / "pool_m2.csv"),
-        pd.read_csv(out_dir / "pool_m3.csv"),
-    )
+    def _load(name):
+        p = out_dir / name
+        return pd.read_csv(p) if p.exists() else None
+    return _load("pool_m1.csv"), _load("pool_m2.csv"), _load("pool_m3.csv")
 
 
 def build_augmented_train(

@@ -88,7 +88,7 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
 
         if not skip_training:
             with T.timed("train_all_argns", fold):
-                ws_m1, ws_m2, ws_m3 = train_all(m1_data, m2_data, m3_data, fold)
+                ws_m1, ws_m2, ws_m3 = train_all(m1_data, m2_data, m3_data, fold, m1_only=True)
         else:
             T.log.info(f"[fold={fold}] skip_training=True — using existing weights")
 
@@ -102,8 +102,8 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
         pool_m1, pool_m2, pool_m3 = load_pools(fold)
         mlflow.log_params({
             "pool_m1_size": len(pool_m1),
-            "pool_m2_size": len(pool_m2),
-            "pool_m3_size": len(pool_m3),
+            "pool_m2_size": len(pool_m2) if pool_m2 is not None else 0,
+            "pool_m3_size": len(pool_m3) if pool_m3 is not None else 0,
         })
 
         # ── 6. Save results ───────────────────────────────────────────────────
@@ -119,7 +119,12 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
             from config import SYNTH_DIR as SYNTHETIC_DIR
             export_dir = SYNTHETIC_DIR / "for_classifier"
             export_dir.mkdir(parents=True, exist_ok=True)
-            combined = pd.concat([pool_m1, pool_m2, pool_m3], ignore_index=True)
+            parts = [pool_m1]
+            if pool_m2 is not None:
+                parts.append(pool_m2)
+            if pool_m3 is not None:
+                parts.append(pool_m3)
+            combined = pd.concat(parts, ignore_index=True)
             export_path = export_dir / f"split_{fold}.csv"
             combined.to_csv(export_path, index=False)
             T.log.info(f"[fold={fold}] Combined fraud pool exported: {len(combined)} rows → {export_path}")
@@ -131,6 +136,9 @@ def run_fold(fold: int, skip_training: bool = False, skip_generation: bool = Fal
             out_path.write_text(json.dumps(fold_result, indent=2))
             T.log.info(f"[fold={fold}] Results saved → {out_path}")
             mlflow.log_artifact(str(out_path))
+            T.log.info(f"[fold={fold}] {'='*50}")
+            T.log.info(f"[fold={fold}] FOLD {fold} DONE — total {total_elapsed:.1f}s ({total_elapsed/60:.1f}min)")
+            T.log.info(f"[fold={fold}] {'='*50}")
             return fold_result
 
         # ── 7. Baseline ───────────────────────────────────────────────────────

@@ -26,23 +26,18 @@ sys.path.insert(0, "/shared/paysim-sarmad/src")
 
 def _run_fold_worker(fold: int, gpu_primary: int, gpu_secondary: int) -> None:
     """Worker that runs in a subprocess with overridden GPU assignments."""
-    # Expose only 2 physical GPUs to this process.
-    # cuda:0 → gpu_primary, cuda:1 → gpu_secondary.
-    # M1+M2 train on cuda:0, M3 train on cuda:1.
-    # Generation: M1 cuda:0, M2 cuda:1, M3 cuda:1 (sequential after M2, no conflict).
-    # Training:   M1+M2 sequential on cuda:0, M3 on cuda:1
-    # Generation: M1+M2 on cuda:0 (M1 then M2 sequential), M3 on cuda:1 (dedicated — heaviest)
-    os.environ["CUDA_VISIBLE_DEVICES"] = f"{gpu_primary},{gpu_secondary}"
+    # M1-only run: each fold gets one dedicated physical GPU.
+    os.environ["CUDA_VISIBLE_DEVICES"] = f"{gpu_primary}"
     os.environ["ARGN_GPU_M1"] = "0"
     os.environ["ARGN_GPU_M2"] = "0"
-    os.environ["ARGN_GPU_M3"] = "1"
+    os.environ["ARGN_GPU_M3"] = "0"
 
     import warnings
     warnings.filterwarnings("ignore")
 
     import tracking as T
     T.setup_fold_logging(fold)
-    T.log.info(f"[fold={fold}] process started — physical GPUs ({gpu_primary},{gpu_secondary}) → cuda:(0,1)")
+    T.log.info(f"[fold={fold}] process started — physical GPU {gpu_primary} → cuda:0")
 
     from pipeline import run_fold
     run_fold(fold, skip_training=False, skip_generation=False, stop_after_generation=True)
@@ -53,9 +48,10 @@ def _run_pair(fold_a: int, fold_b: int | None) -> None:
     ctx = mp.get_context("spawn")
     procs = []
 
+    # M1-only: fold_a on GPU 0, fold_b on GPU 1 — each gets its own dedicated GPU
     p_a = ctx.Process(
         target=_run_fold_worker,
-        args=(fold_a, 0, 1),
+        args=(fold_a, 0, 0),
         name=f"fold-{fold_a}",
     )
     p_a.start()
@@ -64,7 +60,7 @@ def _run_pair(fold_a: int, fold_b: int | None) -> None:
     if fold_b is not None:
         p_b = ctx.Process(
             target=_run_fold_worker,
-            args=(fold_b, 2, 3),
+            args=(fold_b, 1, 1),
             name=f"fold-{fold_b}",
         )
         p_b.start()
@@ -79,9 +75,8 @@ def _run_pair(fold_a: int, fold_b: int | None) -> None:
 
 def main() -> None:
     rounds = [
-        (0, 1),
-        # (2, 3),
-        # (4, None),
+        (2, 3),
+        (4, None),
     ]
 
     total_start = time.time()

@@ -50,9 +50,11 @@ def train_all(
     m2_data: pd.DataFrame,
     m3_data: pd.DataFrame,
     fold: int,
+    m1_only: bool = False,
 ) -> tuple[Path, Path, Path]:
     """
     Train M1, M2, M3 and return their workspace Paths.
+    If m1_only=True, only M1 is trained — M2/M3 workspaces are created but empty.
     M3 is spawned on GPU_M3 in a child process; M1 and M2 run sequentially on GPU_M1_M2.
     """
     warnings.filterwarnings("ignore")
@@ -62,21 +64,7 @@ def train_all(
     ws_m1 = fold_dir / "m1"
     ws_m2 = fold_dir / "m2"
     ws_m3 = fold_dir / "m3"
-    for ws in (ws_m1, ws_m2, ws_m3):
-        ws.mkdir(parents=True, exist_ok=True)
-
-    # save M3 data for subprocess (parquet is fast)
-    tmp_m3 = fold_dir / "_m3_tmp.parquet"
-    m3_data.to_parquet(tmp_m3, index=False)
-
-    T.log.info(f"[fold={fold}] Launching M3 on cuda:{GPU_M3} (subprocess)")
-    ctx = mp.get_context("spawn")
-    m3_proc = ctx.Process(
-        target=_worker,
-        args=(str(tmp_m3), str(ws_m3), M3_MAX_EPOCHS, f"cuda:{GPU_M3}"),
-        name=f"argn-m3-fold{fold}",
-    )
-    m3_proc.start()
+    ws_m1.mkdir(parents=True, exist_ok=True)
 
     # M1 on GPU_M1_M2 ─────────────────────────────────────────────────────────
     with T.timed("train_m1", fold, {"rows": len(m1_data), "fraud": int((m1_data["isFraud"]==1).sum())}):
@@ -88,7 +76,12 @@ def train_all(
         )
         argn_m1.fit(m1_data)
 
+    if m1_only:
+        T.log.info(f"[fold={fold}] m1_only=True — skipping M2 and M3 training")
+        return ws_m1, ws_m2, ws_m3
+
     # M2 on GPU_M1_M2 ─────────────────────────────────────────────────────────
+    ws_m2.mkdir(parents=True, exist_ok=True)
     with T.timed("train_m2", fold, {"rows": len(m2_data), "fraud": int((m2_data["isFraud"]==1).sum())}):
         argn_m2 = TabularARGN(
             max_epochs=M2_MAX_EPOCHS,
@@ -98,7 +91,19 @@ def train_all(
         )
         argn_m2.fit(m2_data)
 
-    # wait for M3 ─────────────────────────────────────────────────────────────
+    # M3 via subprocess ───────────────────────────────────────────────────────
+    ws_m3.mkdir(parents=True, exist_ok=True)
+    tmp_m3 = fold_dir / "_m3_tmp.parquet"
+    m3_data.to_parquet(tmp_m3, index=False)
+
+    T.log.info(f"[fold={fold}] Launching M3 on cuda:{GPU_M3} (subprocess)")
+    ctx = mp.get_context("spawn")
+    m3_proc = ctx.Process(
+        target=_worker,
+        args=(str(tmp_m3), str(ws_m3), M3_MAX_EPOCHS, f"cuda:{GPU_M3}"),
+        name=f"argn-m3-fold{fold}",
+    )
+    m3_proc.start()
     T.log.info(f"[fold={fold}] Waiting for M3 subprocess (pid={m3_proc.pid}) …")
     m3_proc.join()
     tmp_m3.unlink(missing_ok=True)

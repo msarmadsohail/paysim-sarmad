@@ -12,7 +12,7 @@ LOG_DIR    = BASE_DIR / "logs"
 N_FOLDS = 5
 
 # columns
-DROP_COLS  = ["nameOrig", "nameDest", "isFlaggedFraud", "newbalanceOrig"]
+DROP_COLS  = ["nameOrig", "nameDest", "isFlaggedFraud"]
 TARGET     = "isFraud"
 FRAUD_VAL  = 1
 STRAT_COL  = "type"          # used for M2 stratified non-fraud sampling
@@ -28,7 +28,7 @@ M3_MAX_EPOCHS = 100
 M2_NONFR_FRAC = 0.10          # 10% of non-fraud rows for M2
 
 # generation
-M1_POOL_TARGET  = 150_000     # target fraud rows — M1 batched free generation
+M1_POOL_TARGET  = 50_000      # target fraud rows — M1 batched free generation
 M2_POOL_TARGET  = 150_000     # target fraud rows — M2 batched free generation
 M1_GEN_BATCH    = 150_000     # batch size for M1 (100% fraud, one pass usually enough)
 M2_GEN_BATCH    = 50_000      # batch size for M2 (~1.3% fraud rate in output)
