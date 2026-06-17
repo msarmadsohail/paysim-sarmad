@@ -1,10 +1,10 @@
-{"stage": "load_data", "fold": 3, "status": "started", "ts": 1781353177.7422678}
-{"stage": "load_data", "fold": 3, "status": "done", "elapsed_s": 10.5, "ts": 1781353188.2209249}
-{"stage": "generate_all_pools", "fold": 3, "status": "started", "ts": 1781353193.0189097}
-{"stage": "generate_m1", "fold": 3, "status": "started", "ts": 1781353193.0193603}
-{"stage": "generate_m2", "fold": 3, "status": "started", "ts": 1781353193.019548}
-{"stage": "generate_m3", "fold": 3, "status": "started", "ts": 1781353193.019828}
-{"stage": "generate_m1", "fold": 3, "status": "done", "elapsed_s": 3.6, "ts": 1781353196.646197}
-{"stage": "generate_m2", "fold": 3, "status": "done", "elapsed_s": 408.2, "ts": 1781353601.211584}
-{"stage": "generate_m3", "fold": 3, "status": "done", "elapsed_s": 567.5, "ts": 1781353760.536066}
-{"stage": "generate_all_pools", "fold": 3, "status": "done", "elapsed_s": 567.9, "ts": 1781353760.8804493}
+{"stage": "load_data", "fold": 3, "status": "started", "ts": 1781462940.3627803}
+{"stage": "load_data", "fold": 3, "status": "done", "elapsed_s": 9.3, "ts": 1781462949.6136246}
+{"stage": "train_all_argns", "fold": 3, "status": "started", "ts": 1781462953.561867}
+{"stage": "train_m1", "fold": 3, "status": "started", "ts": 1781462958.4916255, "rows": 3455, "fraud": 3455}
+{"stage": "train_m1", "fold": 3, "status": "done", "elapsed_s": 51.2, "ts": 1781463009.6886144}
+{"stage": "train_all_argns", "fold": 3, "status": "done", "elapsed_s": 56.1, "ts": 1781463009.7031598}
+{"stage": "generate_all_pools", "fold": 3, "status": "started", "ts": 1781463009.7158384}
+{"stage": "generate_m1", "fold": 3, "status": "started", "ts": 1781463009.7162328}
+{"stage": "generate_m1", "fold": 3, "status": "done", "elapsed_s": 1.5, "ts": 1781463011.2417336}
+{"stage": "generate_all_pools", "fold": 3, "status": "done", "elapsed_s": 1.5, "ts": 1781463011.2599657}

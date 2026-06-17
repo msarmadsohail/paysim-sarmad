@@ -1,0 +1,316 @@
+
+============================================================
+[run_parallel] Starting folds 0+1
+============================================================
+2026-06-14 18:34:23 [INFO] paysim — [fold=0] process started — physical GPU 0 → cuda:0
+2026-06-14 18:34:23 [INFO] paysim — [fold=1] process started — physical GPU 1 → cuda:0
+2026-06-14 18:34:25 [INFO] paysim — ============================================================
+2026-06-14 18:34:25 [INFO] paysim — FOLD 0 — pipeline start
+2026-06-14 18:34:25 [INFO] paysim — ============================================================
+2026-06-14 18:34:25 [INFO] paysim — ============================================================
+2026-06-14 18:34:25 [INFO] paysim — FOLD 1 — pipeline start
+2026-06-14 18:34:25 [INFO] paysim — ============================================================
+2026-06-14 18:34:25 [INFO] paysim — [fold=0] ▶ START load_data
+2026-06-14 18:34:25 [INFO] paysim — [fold=1] ▶ START load_data
+2026-06-14 18:34:28 [INFO] paysim — train: 1,065,448 rows | fraud=1,392 (0.131%)
+2026-06-14 18:34:28 [INFO] paysim — test: 1,069,194 rows | fraud=689 (0.064%)
+2026-06-14 18:34:28 [INFO] paysim — [fold=0] ✔ DONE  load_data  (3.5s)
+2026-06-14 18:34:29 [INFO] paysim — train_argn (holdout reserved, unused): 852,358 rows | fraud=1,114 (0.131%)
+2026-06-14 18:34:29 [INFO] paysim — holdout (reserved, unused): 213,090 rows | fraud=278 (0.130%)
+2026-06-14 18:34:29 [INFO] paysim — M1: 1,392 rows | fraud=1,392 (100.000%)
+2026-06-14 18:34:29 [INFO] paysim — M2: 107,798 rows | fraud=1,392 (1.291%)
+2026-06-14 18:34:29 [INFO] paysim — M3: 1,065,448 rows | fraud=1,392 (0.131%)
+2026-06-14 18:34:29 [INFO] paysim — [fold=0] ▶ START train_all_argns
+2026-06-14 18:34:30 [INFO] paysim — train: 2,134,642 rows | fraud=2,081 (0.097%)
+2026-06-14 18:34:30 [INFO] paysim — test: 1,051,850 rows | fraud=624 (0.059%)
+2026-06-14 18:34:30 [INFO] paysim — [fold=1] ✔ DONE  load_data  (5.4s)
+2026-06-14 18:34:31 [INFO] paysim — train_argn (holdout reserved, unused): 1,707,713 rows | fraud=1,665 (0.097%)
+2026-06-14 18:34:31 [INFO] paysim — holdout (reserved, unused): 426,929 rows | fraud=416 (0.097%)
+2026-06-14 18:34:32 [INFO] paysim — M1: 2,081 rows | fraud=2,081 (100.000%)
+2026-06-14 18:34:32 [INFO] paysim — M2: 215,336 rows | fraud=2,081 (0.966%)
+2026-06-14 18:34:32 [INFO] paysim — M3: 2,134,642 rows | fraud=2,081 (0.097%)
+2026-06-14 18:34:32 [INFO] paysim — [fold=1] ▶ START train_all_argns
+2026-06-14 18:34:33 [INFO] mostlyai.engine._common — running on Python (3.11.15)
+2026-06-14 18:34:34 [INFO] paysim — [fold=0] ▶ START train_m1
+[2026-06-14 18:34:34,274] INFO   : SPLIT started
+[2026-06-14 18:34:34,274] INFO   : create `/shared/paysim-sarmad/models/fold_0/m1/OriginalData/tgt-data`
+[2026-06-14 18:34:34,274] INFO   : create `/shared/paysim-sarmad/models/fold_0/m1/OriginalData/tgt-meta`
+[2026-06-14 18:34:34,275] INFO   : model_type='TABULAR'
+[2026-06-14 18:34:34,275] INFO   : tgt_encoding_types={'step': 'TABULAR_NUMERIC_AUTO', 'type': 'TABULAR_CATEGORICAL', 'amount': 'TABULAR_NUMERIC_AUTO', 'oldbalanceOrg': 'TABULAR_NUMERIC_AUTO', 'newbalanceOrig': 'TABULAR_NUMERIC_AUTO', 'oldbalanceDest': 'TABULAR_NUMERIC_AUTO', 'newbalanceDest': 'TABULAR_NUMERIC_AUTO', 'isFraud': 'TABULAR_NUMERIC_AUTO'}
+[2026-06-14 18:34:34,284] INFO   : SPLIT finished in 0.01s
+[2026-06-14 18:34:34,284] INFO   : ANALYZE started
+[2026-06-14 18:34:34,285] INFO   : create `/shared/paysim-sarmad/models/fold_0/m1/ModelStore/tgt-stats`
+[2026-06-14 18:34:34,285] INFO   : analyzing 2 partitions in parallel
+2026-06-14 18:34:36 [INFO] mostlyai.engine._common — running on Python (3.11.15)
+2026-06-14 18:34:37 [INFO] paysim — [fold=1] ▶ START train_m1
+[2026-06-14 18:34:37,289] INFO   : SPLIT started
+[2026-06-14 18:34:37,289] INFO   : create `/shared/paysim-sarmad/models/fold_1/m1/OriginalData/tgt-data`
+[2026-06-14 18:34:37,289] INFO   : create `/shared/paysim-sarmad/models/fold_1/m1/OriginalData/tgt-meta`
+[2026-06-14 18:34:37,290] INFO   : model_type='TABULAR'
+[2026-06-14 18:34:37,290] INFO   : tgt_encoding_types={'step': 'TABULAR_NUMERIC_AUTO', 'type': 'TABULAR_CATEGORICAL', 'amount': 'TABULAR_NUMERIC_AUTO', 'oldbalanceOrg': 'TABULAR_NUMERIC_AUTO', 'newbalanceOrig': 'TABULAR_NUMERIC_AUTO', 'oldbalanceDest': 'TABULAR_NUMERIC_AUTO', 'newbalanceDest': 'TABULAR_NUMERIC_AUTO', 'isFraud': 'TABULAR_NUMERIC_AUTO'}
+[2026-06-14 18:34:37,300] INFO   : SPLIT finished in 0.01s
+[2026-06-14 18:34:37,300] INFO   : ANALYZE started
+[2026-06-14 18:34:37,301] INFO   : create `/shared/paysim-sarmad/models/fold_1/m1/ModelStore/tgt-stats`
+[2026-06-14 18:34:37,301] INFO   : analyzing 2 partitions in parallel
+[2026-06-14 18:34:40,487] INFO   : analyzed target partition 000000-trn (1114, 8)
+[2026-06-14 18:34:43,525] INFO   : analyzed target partition 000000-trn (1665, 8)
+[2026-06-14 18:34:46,544] INFO   : analyzed target partition 000000-val (278, 8)
+[2026-06-14 18:34:46,545] INFO   : combine partition statistics
+[2026-06-14 18:34:46,556] INFO   : value_protection = True
+[2026-06-14 18:34:46,556] INFO   : analyzed column `step`: TABULAR_NUMERIC_DIGIT {'E2': 2, 'E1': 10, 'E0': 10}
+[2026-06-14 18:34:46,556] INFO   : analyzed column `type`: TABULAR_CATEGORICAL {'cat': 3}
+[2026-06-14 18:34:46,559] INFO   : analyzed column `amount`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:46,561] INFO   : analyzed column `oldbalanceOrg`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:46,562] INFO   : analyzed column `newbalanceOrig`: TABULAR_NUMERIC_BINNED {'bin': 8}
+[2026-06-14 18:34:46,569] INFO   : analyzed column `oldbalanceDest`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:46,574] INFO   : analyzed column `newbalanceDest`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:46,574] INFO   : analyzed column `isFraud`: TABULAR_NUMERIC_DISCRETE {'cat': 2}
+[2026-06-14 18:34:46,574] INFO   : analyzed 1,392 records: 1,114 training / 278 validation
+[2026-06-14 18:34:46,574] INFO   : is_sequential: False
+[2026-06-14 18:34:46,574] INFO   : write statistics to `/shared/paysim-sarmad/models/fold_0/m1/ModelStore/tgt-stats/stats.json`
+[2026-06-14 18:34:46,577] INFO   : ANALYZE finished in 12.29s
+[2026-06-14 18:34:46,578] INFO   : ENCODE_TABULAR started
+[2026-06-14 18:34:46,578] INFO   : create `/shared/paysim-sarmad/models/fold_0/m1/OriginalData/encoded-data`
+[2026-06-14 18:34:46,579] INFO   : clean `/shared/paysim-sarmad/models/fold_0/m1/OriginalData/encoded-data`
+[2026-06-14 18:34:46,579] INFO   : clean `/shared/paysim-sarmad/models/fold_0/m1/OriginalData/encoded-data`
+[2026-06-14 18:34:46,608] INFO   : encoded partition part.000000-trn.parquet (1114, 10)
+[2026-06-14 18:34:46,635] INFO   : encoded partition part.000000-val.parquet (278, 10)
+[2026-06-14 18:34:46,635] INFO   : ENCODE_TABULAR finished in 0.06s
+[2026-06-14 18:34:46,636] INFO   : TRAIN_TABULAR started
+[2026-06-14 18:34:46,641] INFO   : numpy=2.4.4, pandas=2.3.3
+[2026-06-14 18:34:46,643] INFO   : torch=2.5.1+cu121, opacus=1.4.0
+[2026-06-14 18:34:46,643] INFO   : device=device(type='cuda', index=0)
+[2026-06-14 18:34:46,643] INFO   : is_sequential=False
+[2026-06-14 18:34:46,643] INFO   : max_training_time=864000.0s
+[2026-06-14 18:34:46,643] INFO   : max_epochs=50
+[2026-06-14 18:34:46,643] INFO   : model_size=<ModelSize.M: 'M'>
+[2026-06-14 18:34:46,643] INFO   : enable_flexible_generation=True
+[2026-06-14 18:34:46,643] INFO   : with_dp=False
+[2026-06-14 18:34:46,643] INFO   : model_state_strategy=<ModelStateStrategy.reset: 'RESET'>
+[2026-06-14 18:34:46,644] INFO   : max_sequence_window=np.int64(1)
+[2026-06-14 18:34:46,649] INFO   : create training model
+[2026-06-14 18:34:47,125] INFO   : initializing predictor bias with empirical log probabilities
+[2026-06-14 18:34:47,128] INFO   : model class: FlatModel
+[2026-06-14 18:34:47,128] INFO   : model weights not found; change strategy from ModelStateStrategy.reset to RESET
+[2026-06-14 18:34:47,128] INFO   : model_state_strategy=<ModelStateStrategy.reset: 'RESET'>
+[2026-06-14 18:34:47,128] INFO   : remove existing checkpoint files
+[2026-06-14 18:34:47,128] INFO   : start training progress from epoch=0.0, steps=0
+[2026-06-14 18:34:47,129] INFO   : no_of_model_params=np.int64(79064)
+2026-06-14 18:34:47 [INFO] httpx — HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/parquet/parquet.py "HTTP/1.1 404 Not Found"
+2026-06-14 18:34:47 [INFO] httpx — HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/parquet/parquet.py "HTTP/1.1 404 Not Found"
+[2026-06-14 18:34:47,450] INFO   : trn_cnt=1114, val_cnt=278
+[2026-06-14 18:34:47,450] INFO   : len(tgt_sub_columns)=10, len(ctxflt_sub_columns)=0, len(ctxseq_sub_columns)=0
+[2026-06-14 18:34:47,450] INFO   : tgt_cardinalities_deciles=[np.int64(2), np.int64(2), np.int64(2), np.int64(3), np.int64(8), np.int64(10), np.int64(10), np.int64(103), np.int64(103), np.int64(103), np.int64(103)]
+[2026-06-14 18:34:47,450] INFO   : trn_batch_size=16, val_batch_size=16
+[2026-06-14 18:34:47,450] INFO   : trn_steps=69, val_steps=17
+[2026-06-14 18:34:47,450] INFO   : batch_size=16, gradient_accumulation_steps=1, initial_lr=np.float64(0.00071)
+[2026-06-14 18:34:48,161] INFO   : {'epoch': 0.01, 'is_checkpoint': 0, 'steps': 1, 'samples': 16, 'trn_loss': 20.9012, 'val_loss': None, 'total_time': 0.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:48,984] INFO   : {'epoch': 1.0, 'is_checkpoint': 1, 'steps': 69, 'samples': 1104, 'trn_loss': 20.271, 'val_loss': 20.9184, 'total_time': 1.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:49,484] INFO   : analyzed target partition 000000-val (416, 8)
+[2026-06-14 18:34:49,484] INFO   : combine partition statistics
+[2026-06-14 18:34:49,490] INFO   : value_protection = True
+[2026-06-14 18:34:49,491] INFO   : analyzed column `step`: TABULAR_NUMERIC_DIGIT {'E2': 2, 'E1': 10, 'E0': 10}
+[2026-06-14 18:34:49,491] INFO   : analyzed column `type`: TABULAR_CATEGORICAL {'cat': 3}
+[2026-06-14 18:34:49,492] INFO   : analyzed column `amount`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:49,493] INFO   : analyzed column `oldbalanceOrg`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:49,494] INFO   : analyzed column `newbalanceOrig`: TABULAR_NUMERIC_BINNED {'bin': 12}
+[2026-06-14 18:34:49,498] INFO   : analyzed column `oldbalanceDest`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:49,501] INFO   : analyzed column `newbalanceDest`: TABULAR_NUMERIC_BINNED {'bin': 103}
+[2026-06-14 18:34:49,501] INFO   : analyzed column `isFraud`: TABULAR_NUMERIC_DISCRETE {'cat': 2}
+[2026-06-14 18:34:49,501] INFO   : analyzed 2,081 records: 1,665 training / 416 validation
+[2026-06-14 18:34:49,501] INFO   : is_sequential: False
+[2026-06-14 18:34:49,501] INFO   : write statistics to `/shared/paysim-sarmad/models/fold_1/m1/ModelStore/tgt-stats/stats.json`
+[2026-06-14 18:34:49,503] INFO   : ANALYZE finished in 12.20s
+[2026-06-14 18:34:49,503] INFO   : ENCODE_TABULAR started
+[2026-06-14 18:34:49,504] INFO   : create `/shared/paysim-sarmad/models/fold_1/m1/OriginalData/encoded-data`
+[2026-06-14 18:34:49,504] INFO   : clean `/shared/paysim-sarmad/models/fold_1/m1/OriginalData/encoded-data`
+[2026-06-14 18:34:49,504] INFO   : clean `/shared/paysim-sarmad/models/fold_1/m1/OriginalData/encoded-data`
+[2026-06-14 18:34:49,542] INFO   : encoded partition part.000000-trn.parquet (1665, 10)
+[2026-06-14 18:34:49,569] INFO   : encoded partition part.000000-val.parquet (416, 10)
+[2026-06-14 18:34:49,569] INFO   : ENCODE_TABULAR finished in 0.07s
+[2026-06-14 18:34:49,570] INFO   : TRAIN_TABULAR started
+[2026-06-14 18:34:49,575] INFO   : numpy=2.4.4, pandas=2.3.3
+[2026-06-14 18:34:49,577] INFO   : torch=2.5.1+cu121, opacus=1.4.0
+[2026-06-14 18:34:49,577] INFO   : device=device(type='cuda', index=0)
+[2026-06-14 18:34:49,577] INFO   : is_sequential=False
+[2026-06-14 18:34:49,577] INFO   : max_training_time=864000.0s
+[2026-06-14 18:34:49,577] INFO   : max_epochs=50
+[2026-06-14 18:34:49,577] INFO   : model_size=<ModelSize.M: 'M'>
+[2026-06-14 18:34:49,577] INFO   : enable_flexible_generation=True
+[2026-06-14 18:34:49,577] INFO   : with_dp=False
+[2026-06-14 18:34:49,577] INFO   : model_state_strategy=<ModelStateStrategy.reset: 'RESET'>
+[2026-06-14 18:34:49,578] INFO   : max_sequence_window=np.int64(1)
+[2026-06-14 18:34:49,583] INFO   : create training model
+[2026-06-14 18:34:49,823] INFO   : {'epoch': 2.0, 'is_checkpoint': 1, 'steps': 138, 'samples': 2202, 'trn_loss': 19.7488, 'val_loss': 20.7513, 'total_time': 2.4, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:50,052] INFO   : initializing predictor bias with empirical log probabilities
+[2026-06-14 18:34:50,054] INFO   : model class: FlatModel
+[2026-06-14 18:34:50,055] INFO   : model weights not found; change strategy from ModelStateStrategy.reset to RESET
+[2026-06-14 18:34:50,055] INFO   : model_state_strategy=<ModelStateStrategy.reset: 'RESET'>
+[2026-06-14 18:34:50,055] INFO   : remove existing checkpoint files
+[2026-06-14 18:34:50,055] INFO   : start training progress from epoch=0.0, steps=0
+[2026-06-14 18:34:50,056] INFO   : no_of_model_params=np.int64(80180)
+2026-06-14 18:34:50 [INFO] httpx — HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/parquet/parquet.py "HTTP/1.1 404 Not Found"
+2026-06-14 18:34:50 [INFO] httpx — HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/parquet/parquet.py "HTTP/1.1 404 Not Found"
+[2026-06-14 18:34:50,355] INFO   : trn_cnt=1665, val_cnt=416
+[2026-06-14 18:34:50,355] INFO   : len(tgt_sub_columns)=10, len(ctxflt_sub_columns)=0, len(ctxseq_sub_columns)=0
+[2026-06-14 18:34:50,355] INFO   : tgt_cardinalities_deciles=[np.int64(2), np.int64(2), np.int64(2), np.int64(3), np.int64(10), np.int64(10), np.int64(12), np.int64(103), np.int64(103), np.int64(103), np.int64(103)]
+[2026-06-14 18:34:50,355] INFO   : trn_batch_size=16, val_batch_size=16
+[2026-06-14 18:34:50,355] INFO   : trn_steps=104, val_steps=26
+[2026-06-14 18:34:50,355] INFO   : batch_size=16, gradient_accumulation_steps=1, initial_lr=np.float64(0.00071)
+[2026-06-14 18:34:50,607] INFO   : {'epoch': 3.0, 'is_checkpoint': 1, 'steps': 207, 'samples': 3300, 'trn_loss': 19.4528, 'val_loss': 20.5604, 'total_time': 3.2, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:51,062] INFO   : {'epoch': 0.01, 'is_checkpoint': 0, 'steps': 1, 'samples': 16, 'trn_loss': 20.217, 'val_loss': None, 'total_time': 0.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:51,396] INFO   : {'epoch': 4.0, 'is_checkpoint': 1, 'steps': 276, 'samples': 4398, 'trn_loss': 19.1766, 'val_loss': 20.4654, 'total_time': 3.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:52,177] INFO   : {'epoch': 5.0, 'is_checkpoint': 1, 'steps': 345, 'samples': 5496, 'trn_loss': 18.9541, 'val_loss': 20.2496, 'total_time': 4.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:52,248] INFO   : {'epoch': 1.0, 'is_checkpoint': 1, 'steps': 104, 'samples': 1664, 'trn_loss': 20.4148, 'val_loss': 21.0942, 'total_time': 1.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:52,968] INFO   : {'epoch': 6.0, 'is_checkpoint': 1, 'steps': 414, 'samples': 6594, 'trn_loss': 18.57, 'val_loss': 20.1232, 'total_time': 5.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:53,462] INFO   : {'epoch': 2.0, 'is_checkpoint': 1, 'steps': 208, 'samples': 3313, 'trn_loss': 19.9709, 'val_loss': 20.8637, 'total_time': 3.1, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:53,750] INFO   : {'epoch': 7.0, 'is_checkpoint': 1, 'steps': 483, 'samples': 7692, 'trn_loss': 18.3658, 'val_loss': 19.927, 'total_time': 6.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:54,536] INFO   : {'epoch': 8.0, 'is_checkpoint': 1, 'steps': 552, 'samples': 8790, 'trn_loss': 18.0108, 'val_loss': 19.8094, 'total_time': 7.1, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:54,660] INFO   : {'epoch': 3.0, 'is_checkpoint': 1, 'steps': 312, 'samples': 4962, 'trn_loss': 19.6082, 'val_loss': 20.5699, 'total_time': 4.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:55,326] INFO   : {'epoch': 9.0, 'is_checkpoint': 1, 'steps': 621, 'samples': 9888, 'trn_loss': 17.7178, 'val_loss': 19.563, 'total_time': 7.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:55,861] INFO   : {'epoch': 4.0, 'is_checkpoint': 1, 'steps': 416, 'samples': 6611, 'trn_loss': 19.2991, 'val_loss': 20.2753, 'total_time': 5.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:56,108] INFO   : {'epoch': 10.0, 'is_checkpoint': 1, 'steps': 690, 'samples': 10986, 'trn_loss': 17.4528, 'val_loss': 19.2816, 'total_time': 8.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:56,890] INFO   : {'epoch': 11.0, 'is_checkpoint': 1, 'steps': 759, 'samples': 12084, 'trn_loss': 17.226, 'val_loss': 18.9529, 'total_time': 9.4, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:57,058] INFO   : {'epoch': 5.0, 'is_checkpoint': 1, 'steps': 520, 'samples': 8260, 'trn_loss': 18.8771, 'val_loss': 19.9589, 'total_time': 6.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:57,667] INFO   : {'epoch': 12.0, 'is_checkpoint': 0, 'steps': 828, 'samples': 13182, 'trn_loss': 16.8998, 'val_loss': 18.969, 'total_time': 10.2, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:58,256] INFO   : {'epoch': 6.0, 'is_checkpoint': 1, 'steps': 624, 'samples': 9909, 'trn_loss': 18.4255, 'val_loss': 19.5624, 'total_time': 7.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:58,450] INFO   : {'epoch': 13.0, 'is_checkpoint': 1, 'steps': 897, 'samples': 14280, 'trn_loss': 16.7827, 'val_loss': 18.745, 'total_time': 11.0, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:59,241] INFO   : {'epoch': 14.0, 'is_checkpoint': 1, 'steps': 966, 'samples': 15378, 'trn_loss': 16.3471, 'val_loss': 18.5255, 'total_time': 11.8, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:34:59,455] INFO   : {'epoch': 7.0, 'is_checkpoint': 1, 'steps': 728, 'samples': 11558, 'trn_loss': 18.0752, 'val_loss': 19.2849, 'total_time': 9.1, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:00,012] INFO   : {'epoch': 15.0, 'is_checkpoint': 0, 'steps': 1035, 'samples': 16476, 'trn_loss': 16.313, 'val_loss': 18.6035, 'total_time': 12.6, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:00,651] INFO   : {'epoch': 8.0, 'is_checkpoint': 1, 'steps': 832, 'samples': 13207, 'trn_loss': 17.6235, 'val_loss': 18.9812, 'total_time': 10.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:00,793] INFO   : {'epoch': 16.0, 'is_checkpoint': 1, 'steps': 1104, 'samples': 17574, 'trn_loss': 15.9735, 'val_loss': 18.3214, 'total_time': 13.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:01,571] INFO   : {'epoch': 17.0, 'is_checkpoint': 0, 'steps': 1173, 'samples': 18672, 'trn_loss': 15.9593, 'val_loss': 18.3952, 'total_time': 14.1, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:01,850] INFO   : {'epoch': 9.0, 'is_checkpoint': 1, 'steps': 936, 'samples': 14856, 'trn_loss': 17.3468, 'val_loss': 18.5464, 'total_time': 11.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:02,353] INFO   : {'epoch': 18.0, 'is_checkpoint': 1, 'steps': 1242, 'samples': 19770, 'trn_loss': 15.6644, 'val_loss': 18.2935, 'total_time': 14.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:03,046] INFO   : {'epoch': 10.0, 'is_checkpoint': 1, 'steps': 1040, 'samples': 16505, 'trn_loss': 17.0232, 'val_loss': 18.3604, 'total_time': 12.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:03,134] INFO   : {'epoch': 19.0, 'is_checkpoint': 1, 'steps': 1311, 'samples': 20868, 'trn_loss': 15.638, 'val_loss': 18.0966, 'total_time': 15.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:03,912] INFO   : {'epoch': 20.0, 'is_checkpoint': 0, 'steps': 1380, 'samples': 21966, 'trn_loss': 15.5643, 'val_loss': 18.1753, 'total_time': 16.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:04,246] INFO   : {'epoch': 11.0, 'is_checkpoint': 1, 'steps': 1144, 'samples': 18154, 'trn_loss': 16.6489, 'val_loss': 18.1916, 'total_time': 13.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:04,682] INFO   : {'epoch': 21.0, 'is_checkpoint': 0, 'steps': 1449, 'samples': 23064, 'trn_loss': 15.1584, 'val_loss': 18.1018, 'total_time': 17.2, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:05,442] INFO   : {'epoch': 12.0, 'is_checkpoint': 1, 'steps': 1248, 'samples': 19803, 'trn_loss': 16.5451, 'val_loss': 18.1006, 'total_time': 15.1, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:05,464] INFO   : {'epoch': 22.0, 'is_checkpoint': 1, 'steps': 1518, 'samples': 24162, 'trn_loss': 15.2356, 'val_loss': 17.8249, 'total_time': 18.0, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:06,239] INFO   : {'epoch': 23.0, 'is_checkpoint': 0, 'steps': 1587, 'samples': 25260, 'trn_loss': 14.9317, 'val_loss': 18.2481, 'total_time': 18.8, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:06,641] INFO   : {'epoch': 13.0, 'is_checkpoint': 1, 'steps': 1352, 'samples': 21452, 'trn_loss': 16.298, 'val_loss': 17.7573, 'total_time': 16.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:07,007] INFO   : {'epoch': 24.0, 'is_checkpoint': 0, 'steps': 1656, 'samples': 26358, 'trn_loss': 14.8794, 'val_loss': 17.9431, 'total_time': 19.6, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:07,782] INFO   : {'epoch': 25.0, 'is_checkpoint': 0, 'steps': 1725, 'samples': 27456, 'trn_loss': 14.8326, 'val_loss': 17.9843, 'total_time': 20.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:07,839] INFO   : {'epoch': 14.0, 'is_checkpoint': 1, 'steps': 1456, 'samples': 23101, 'trn_loss': 16.2185, 'val_loss': 17.6705, 'total_time': 17.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:08,552] INFO   : {'epoch': 26.0, 'is_checkpoint': 0, 'steps': 1794, 'samples': 28554, 'trn_loss': 14.7555, 'val_loss': 17.9943, 'total_time': 21.1, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:09,022] INFO   : {'epoch': 15.0, 'is_checkpoint': 0, 'steps': 1560, 'samples': 24750, 'trn_loss': 15.9927, 'val_loss': 17.7187, 'total_time': 18.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:09,333] INFO   : {'epoch': 27.0, 'is_checkpoint': 1, 'steps': 1863, 'samples': 29652, 'trn_loss': 14.7342, 'val_loss': 17.7731, 'total_time': 21.9, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:10,108] INFO   : {'epoch': 28.0, 'is_checkpoint': 0, 'steps': 1932, 'samples': 30750, 'trn_loss': 14.4995, 'val_loss': 17.7854, 'total_time': 22.7, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:10,221] INFO   : {'epoch': 16.0, 'is_checkpoint': 1, 'steps': 1664, 'samples': 26399, 'trn_loss': 15.8638, 'val_loss': 17.4297, 'total_time': 19.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:10,879] INFO   : {'epoch': 29.0, 'is_checkpoint': 0, 'steps': 2001, 'samples': 31848, 'trn_loss': 14.5838, 'val_loss': 17.795, 'total_time': 23.4, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:11,419] INFO   : {'epoch': 17.0, 'is_checkpoint': 1, 'steps': 1768, 'samples': 28048, 'trn_loss': 15.7129, 'val_loss': 17.4166, 'total_time': 21.1, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:11,650] INFO   : {'epoch': 30.0, 'is_checkpoint': 0, 'steps': 2070, 'samples': 32946, 'trn_loss': 14.4488, 'val_loss': 17.8304, 'total_time': 24.2, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:12,437] INFO   : {'epoch': 31.0, 'is_checkpoint': 1, 'steps': 2139, 'samples': 34044, 'trn_loss': 14.3629, 'val_loss': 17.7607, 'total_time': 25.0, 'learn_rate': 0.000178, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:12,620] INFO   : {'epoch': 18.0, 'is_checkpoint': 1, 'steps': 1872, 'samples': 29697, 'trn_loss': 15.608, 'val_loss': 17.3394, 'total_time': 22.3, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:13,207] INFO   : {'epoch': 32.0, 'is_checkpoint': 0, 'steps': 2208, 'samples': 35142, 'trn_loss': 14.5204, 'val_loss': 17.7992, 'total_time': 25.8, 'learn_rate': 0.000178, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:13,814] INFO   : {'epoch': 19.0, 'is_checkpoint': 1, 'steps': 1976, 'samples': 31346, 'trn_loss': 15.5523, 'val_loss': 17.3368, 'total_time': 23.5, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:13,976] INFO   : {'epoch': 33.0, 'is_checkpoint': 0, 'steps': 2277, 'samples': 36240, 'trn_loss': 14.2453, 'val_loss': 17.9446, 'total_time': 26.5, 'learn_rate': 0.000178, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:14,749] INFO   : {'epoch': 34.0, 'is_checkpoint': 0, 'steps': 2346, 'samples': 37338, 'trn_loss': 14.4421, 'val_loss': 18.0141, 'total_time': 27.3, 'learn_rate': 0.000178, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:15,013] INFO   : {'epoch': 20.0, 'is_checkpoint': 1, 'steps': 2080, 'samples': 32995, 'trn_loss': 15.4396, 'val_loss': 17.2753, 'total_time': 24.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:15,518] INFO   : {'epoch': 35.0, 'is_checkpoint': 0, 'steps': 2415, 'samples': 38436, 'trn_loss': 14.4747, 'val_loss': 17.8407, 'total_time': 28.1, 'learn_rate': 8.9e-05, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:16,197] INFO   : {'epoch': 21.0, 'is_checkpoint': 0, 'steps': 2184, 'samples': 34644, 'trn_loss': 15.3943, 'val_loss': 17.3083, 'total_time': 25.8, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:16,294] INFO   : early stopping: val_loss stopped improving
+[2026-06-14 18:35:16,294] INFO   : {'epoch': 36.0, 'is_checkpoint': 0, 'steps': 2484, 'samples': 39534, 'trn_loss': 14.104, 'val_loss': 17.8991, 'total_time': 28.8, 'learn_rate': 8.9e-05, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:16,297] INFO   : TRAIN_TABULAR finished in 29.66s
+2026-06-14 18:35:17 [INFO] paysim — [fold=0] ✔ DONE  train_m1  (43.1s)
+2026-06-14 18:35:17 [INFO] paysim — [fold=0] m1_only=True — skipping M2 and M3 training
+2026-06-14 18:35:17 [INFO] paysim — [fold=0] ✔ DONE  train_all_argns  (47.8s)
+[2026-06-14 18:35:17,395] INFO   : {'epoch': 22.0, 'is_checkpoint': 1, 'steps': 2288, 'samples': 36293, 'trn_loss': 15.2675, 'val_loss': 17.2262, 'total_time': 27.0, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+2026-06-14 18:35:17 [INFO] paysim — [fold=0] ▶ START generate_all_pools
+2026-06-14 18:35:17 [INFO] paysim — [fold=0] Generating M1 only on cuda:0
+2026-06-14 18:35:17 [INFO] paysim — [fold=0] ▶ START generate_m1
+[2026-06-14 18:35:18,591] INFO   : {'epoch': 23.0, 'is_checkpoint': 1, 'steps': 2392, 'samples': 37942, 'trn_loss': 15.1832, 'val_loss': 17.2115, 'total_time': 28.2, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+2026-06-14 18:35:18 [INFO] paysim — [fold=0] M1 pool: 150,000/50,000 fraud rows (round 1)
+2026-06-14 18:35:18 [INFO] paysim — [fold=0] M1 pool saved: 50,000 fraud rows → /shared/paysim-sarmad/synthetic/fold_0/pool_m1.csv
+2026-06-14 18:35:18 [INFO] paysim — [fold=0] ✔ DONE  generate_m1  (1.6s)
+2026-06-14 18:35:19 [INFO] paysim — [fold=0] ✔ DONE  generate_all_pools  (1.6s)
+[2026-06-14 18:35:19,765] INFO   : {'epoch': 24.0, 'is_checkpoint': 0, 'steps': 2496, 'samples': 39591, 'trn_loss': 15.1151, 'val_loss': 17.325, 'total_time': 29.4, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:20,933] INFO   : {'epoch': 25.0, 'is_checkpoint': 1, 'steps': 2600, 'samples': 41240, 'trn_loss': 15.0186, 'val_loss': 17.1713, 'total_time': 30.6, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:22,084] INFO   : {'epoch': 26.0, 'is_checkpoint': 0, 'steps': 2704, 'samples': 42889, 'trn_loss': 14.9564, 'val_loss': 17.2482, 'total_time': 31.7, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:23,240] INFO   : {'epoch': 27.0, 'is_checkpoint': 0, 'steps': 2808, 'samples': 44538, 'trn_loss': 14.91, 'val_loss': 17.2803, 'total_time': 32.9, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:24,391] INFO   : {'epoch': 28.0, 'is_checkpoint': 0, 'steps': 2912, 'samples': 46187, 'trn_loss': 14.7685, 'val_loss': 17.1725, 'total_time': 34.0, 'learn_rate': 0.00071, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:25,547] INFO   : {'epoch': 29.0, 'is_checkpoint': 0, 'steps': 3016, 'samples': 47836, 'trn_loss': 14.7375, 'val_loss': 17.1796, 'total_time': 35.2, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:26,702] INFO   : early stopping: val_loss stopped improving
+[2026-06-14 18:35:26,702] INFO   : {'epoch': 30.0, 'is_checkpoint': 0, 'steps': 3120, 'samples': 49485, 'trn_loss': 14.7386, 'val_loss': 17.2822, 'total_time': 36.3, 'learn_rate': 0.000355, 'dp_eps': None, 'dp_delta': None}
+[2026-06-14 18:35:26,705] INFO   : TRAIN_TABULAR finished in 37.13s
+2026-06-14 18:35:27 [INFO] paysim — [fold=1] ✔ DONE  train_m1  (50.4s)
+2026-06-14 18:35:27 [INFO] paysim — [fold=1] m1_only=True — skipping M2 and M3 training
+2026-06-14 18:35:27 [INFO] paysim — [fold=1] ✔ DONE  train_all_argns  (55.3s)
+2026-06-14 18:35:27 [INFO] paysim — [fold=1] ▶ START generate_all_pools
+2026-06-14 18:35:27 [INFO] paysim — [fold=1] Generating M1 only on cuda:0
+2026-06-14 18:35:27 [INFO] paysim — [fold=1] ▶ START generate_m1
+2026-06-14 18:35:29 [INFO] paysim — [fold=1] M1 pool: 150,000/50,000 fraud rows (round 1)
+2026-06-14 18:35:29 [INFO] paysim — [fold=1] M1 pool saved: 50,000 fraud rows → /shared/paysim-sarmad/synthetic/fold_1/pool_m1.csv
+2026-06-14 18:35:29 [INFO] paysim — [fold=1] ✔ DONE  generate_m1  (1.5s)
+2026-06-14 18:35:29 [INFO] paysim — [fold=1] ✔ DONE  generate_all_pools  (1.5s)
+Process fold-0:
+Traceback (most recent call last):
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/shared/paysim-sarmad/run_parallel.py", line 43, in _run_fold_worker
+    run_fold(fold, skip_training=False, skip_generation=False, stop_after_generation=True)
+  File "/shared/paysim-sarmad/src/pipeline.py", line 102, in run_fold
+    pool_m1, pool_m2, pool_m3 = load_pools(fold)
+                                ^^^^^^^^^^^^^^^^
+  File "/shared/paysim-sarmad/src/generate.py", line 116, in load_pools
+    pd.read_csv(out_dir / "pool_m2.csv"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/shared/paysim-sarmad/synthetic/fold_0/pool_m2.csv'
+Traceback (most recent call last):
+  File "/shared/paysim-sarmad/run_parallel.py", line 98, in <module>
+    main()
+  File "/shared/paysim-sarmad/run_parallel.py", line 89, in main
+    _run_pair(fold_a, fold_b)
+  File "/shared/paysim-sarmad/run_parallel.py", line 72, in _run_pair
+    raise RuntimeError(f"Fold {fold} worker exited with code {p.exitcode}")
+RuntimeError: Fold 0 worker exited with code 1
+Process fold-1:
+Traceback (most recent call last):
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/shared/paysim-sarmad/run_parallel.py", line 43, in _run_fold_worker
+    run_fold(fold, skip_training=False, skip_generation=False, stop_after_generation=True)
+  File "/shared/paysim-sarmad/src/pipeline.py", line 102, in run_fold
+    pool_m1, pool_m2, pool_m3 = load_pools(fold)
+                                ^^^^^^^^^^^^^^^^
+  File "/shared/paysim-sarmad/src/generate.py", line 116, in load_pools
+    pd.read_csv(out_dir / "pool_m2.csv"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/shared/miniconda3/envs/paysim-synth/lib/python3.11/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/shared/paysim-sarmad/synthetic/fold_1/pool_m2.csv'
